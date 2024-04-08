@@ -55,7 +55,7 @@
 ) VALUES(
 	'주술회전', 'admin', '고죠사토루 피규어', '50000', '50', '귀하다 귀해!!', NOW(),NOW());
 	*/
-	String sql1 = "insert into goods (category, emp_id, goods_title , filename, goods_price , goods_amount , goods_content , update_date, create_date) VALUES(?, 'admin', ?, ?, ?, ?, NOW(),NOW())";
+	String sql1 = "insert into goods (category, emp_id, goods_title , filename, goods_price , goods_amount , goods_content , update_date, create_date) VALUES(?, 'admin', ?, ?, ?, ?, ?, NOW(),NOW())";
 	stmt1 = conn.prepareStatement(sql1);
 	stmt1.setString(1, category);
 	stmt1.setString(2, goodsTitle);

@@ -4,9 +4,9 @@
 
 <!-- Controller Layer -->
 <%
-	// 인증분기	 : 세션변수 이름 - loginEmp
-	if(session.getAttribute("loginEmp") == null) {
-		response.sendRedirect("/shop/emp/empLoginForm.jsp");
+	// 인증분기	 : 세션변수 이름 - loginCustomer
+	if(session.getAttribute("loginCustomer") == null) {
+		response.sendRedirect("/shop/customer/customerLoginForm.jsp");
 		return;
 	}
 %>
@@ -129,11 +129,6 @@
 </style>
 <body>
 	<!-- 메인메뉴 -->
-	<div><a href="/shop/emp/empLogout.jsp">로그아웃</a></div>
-	<div>
-		<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
-	</div>
-	
 	<div>
 	
 	</div>
@@ -143,7 +138,7 @@
 		<%
 			for(HashMap m : categoryList) {
 		%>
-				<a href="/shop/emp/goodsList.jsp?currentPage=<%=currentPage%>&category=<%=(String)(m.get("category"))%>">
+				<a href="/shop/customer/customerGoodsList.jsp?currentPage=<%=currentPage%>&category=<%=(String)(m.get("category"))%>">
 					<%=(String)(m.get("category"))%>
 					(<%=(Integer)(m.get("cnt"))%>)
 				</a>	
@@ -152,31 +147,31 @@
 		%>
 	</div>
 	<!-- 굿즈 상품목록 -->
-		
 
 		<%
 			for(HashMap m2 : goodsTitleList) {
 		%>
-	
+
 		<div class="container">
 			<div class="box">
+					
 				<div style="width:300px; height:250px; float:left;
 						 margin-right:20px; margin-top:20px; ">
 					<div>
-						<a href="/shop/emp/goodsOne.jsp?goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">
+						<a href="/shop/customer/customerGoodsOne.jsp?goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">
 							<img src="/shop/upload/<%=(String)(m2.get("filename"))%>"
 									style="width:300px; height:200px;">
 						</a>
 					</div>		
 					<div >
-						<a href="/shop/emp/goodsOne.jsp?goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">
+						<a href="/shop/customer/customerGoodsOne.jsp?goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">
 							<%=(String)(m2.get("category"))%>/<%=(String)(m2.get("goodsTitle"))%>
 						</a>
 					</div>
 					
 					<div></div>
 					<div>
-						<a href="/shop/emp/goodsOne.jsp?goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">
+						<a href="/shop/customer/customerGoodsOne.jsp?goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">
 							<%=(int)(m2.get("goodsPrice"))%> 원
 						</a>
 					</div>
@@ -194,13 +189,13 @@
 		if(currentPage > 1) {
 	%>
 		<div>
-			<a href="./goodsList.jsp?currentPage=<%=currentPage-1%>&category=<%=category%>">
+			<a href="./customerGoodsList.jsp?currentPage=<%=currentPage-1%>&category=<%=category%>">
 			◀◁◀</a>	
 	<%
 		}
 		if(currentPage < lastPage) {
 	%>
-			<a href="./goodsList.jsp?currentPage=<%=currentPage+1%>&category=<%=category%>">
+			<a href="./customerGoodsList.jsp?currentPage=<%=currentPage+1%>&category=<%=category%>">
 			▷▶▷</a>
 		</div>
 	<%

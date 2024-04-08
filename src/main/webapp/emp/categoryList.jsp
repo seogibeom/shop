@@ -35,6 +35,7 @@
 	<title></title>
 </head>
 <body>
+	<div><a href="/shop/emp/empLogout.jsp">로그아웃</a></div>
 	<div>
 		<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
 	</div>
@@ -42,9 +43,15 @@
 	<%
 		for(HashMap m : categoryList) {
 	%>
-		<%=(String)(m.get("category"))%><br>
+		<div><%=(String)(m.get("category"))%></div>
 	<%
 		}
 	%>
+	<hr>
+	<form method="post" action="/shop/emp/addCategory.jsp">
+		<div>
+			카테고리 추가 : <input type="text" name="addCategory"> <button type="submit">등록</button>
+		</div>
+	</form>	
 </body>
 </html>

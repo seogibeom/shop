@@ -73,10 +73,12 @@
 <body>
 	<!--  empMenu.jsp include : 주체(서버) vs redirect(주체 : 클라이언트) -->
 	<!-- 주체가 서버이기때문에 include 할때는 절대주소가  /shop/.. 부터 시작하지않는다 -->
-	<jsp : include page="emp/inc/empMenu.jsp"></jsp : include>
-
-
 	<div><a href="/shop/emp/empLogout.jsp">로그아웃</a></div>
+	<div>
+		<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
+	</div>
+
+
 	<h1>사원목록</h1>
 <form method="post" action="/shop/emp/modifyEmpActive.jsp">	
 	<table border ="1">
