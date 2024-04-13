@@ -57,14 +57,15 @@
 							<input type="radio" name="gender" value="f">여
 		</div>
 		<div>email :	
-							<input type="email" name="email">@<input type="email" name="email">
-						<select name="email2">
+							<input type="email" name="email">
+				<!-- 		<select name="email2">
 							<option disabled selected>이메일을 선택해주세요</option>
 							<option value="naver">naver.com</option>
 							<option value="daum">daum.net</option>
 							<option value="gmail">gmail.com</option>
 							<option value="non">직접입력</option>
-						</select>
+						</select> 
+				-->	
 						
 		</div>
 		<div>			<button type="submit">입력</button></div>

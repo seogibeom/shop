@@ -45,7 +45,7 @@
 	</div>
 	
 	<h1>상품등록</h1>
-	<form method="post" action="/shop/emp/addGoodsAction.jsp"
+	<form method="post"  action="./addGoodsAction.jsp"
 			enctype="multipart/form-data">
 		<div>
 			category :
@@ -71,11 +71,11 @@
 		</div>
 		<div>
 			goodsPrice :
-			<input type="number" name="goodsPrice">
+			<input type="number"  name="goodsPrice">
 		</div>
 		<div>
 			goodsAmount :
-			<input type="number" name="goodsAmount">
+			<input type="number"  name="goodsAmount">
 		</div>
 		<div>
 			goodsContent :

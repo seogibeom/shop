@@ -51,9 +51,6 @@ Ex) SELECT * from goods
 			<div><%=rs.getString("goods_content")%></div>
 			<div><%=rs.getString("goods_price")%></div>
 			<div><%=rs.getString("goods_amount")%></div>
-			<div>
-				<a href="./deleteGoods.jsp?goodsNo=<%=goodsNo%>">삭제</a> <!-- 삭제시키려면 링크에 굿즈넘버를 넣어야함 -->
-			</div>
 		</div>
 	</div>
 </div>

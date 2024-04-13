@@ -21,10 +21,15 @@
 <!-- Model Layer -->
 <%
 	String category = request.getParameter("category");
+	System.out.println(category +"<<==category");
 	String goodsTitle = request.getParameter("goodsTitle");
+	System.out.println(goodsTitle +"<<==goodsTitle");
 	int goodsPrice = Integer.parseInt(request.getParameter("goodsPrice"));
-	int goodsAmount = Integer.parseInt(request.getParameter("goodsAmount"));
+	System.out.println(goodsPrice +"<<==goodsPrice");	
+	 int goodsAmount = Integer.parseInt(request.getParameter("goodsAmount"));
+	 System.out.println(goodsAmount +"<<==goodsAmount");
 	String goodsContent = request.getParameter("goodsContent");
+	System.out.println(goodsContent +"<<==goodsContent");
 	
 	Part part = request.getPart("goodsImg");
 	String originalName = part.getSubmittedFileName();
@@ -36,12 +41,7 @@
 	String filename = uuid.toString().replace("-","");
 	filename = filename + ext;
 	
-	System.out.println(category +"<<==category");
-	System.out.println(goodsTitle +"<<==goodsTitle");
 	System.out.println(filename +"<<==filename");
-	System.out.println(goodsPrice +"<<==goodsPrice");
-	System.out.println(goodsAmount +"<<==goodsAmount");
-	System.out.println(goodsContent +"<<==goodsContent");
 	
 	Class.forName("org.mariadb.jdbc.Driver");
 	Connection conn = null;
