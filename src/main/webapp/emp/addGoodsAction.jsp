@@ -3,6 +3,7 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="java.io.*" %>
 <%@ page import="java.nio.file.*" %>
+<%@ page import="shop.dao.*" %>
 <!-- Controller Layer -->
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -43,28 +44,14 @@
 	
 	System.out.println(filename +"<<==filename");
 	
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	PreparedStatement stmt1 = null;
-	ResultSet rs1 = null;
-	conn = DriverManager.getConnection(
-			"jdbc:mariadb://127.0.0.1:3306/shop", "root", "java1234");
 	/*
 	INSERT INTO goods(
 	category, emp_id, goods_title, goods_price, goods_amount, goods_content, update_date, create_date
-) VALUES(
+	) VALUES(
 	'주술회전', 'admin', '고죠사토루 피규어', '50000', '50', '귀하다 귀해!!', NOW(),NOW());
 	*/
-	String sql1 = "insert into goods (category, emp_id, goods_title , filename, goods_price , goods_amount , goods_content , update_date, create_date) VALUES(?, 'admin', ?, ?, ?, ?, ?, NOW(),NOW())";
-	stmt1 = conn.prepareStatement(sql1);
-	stmt1.setString(1, category);
-	stmt1.setString(2, goodsTitle);
-	stmt1.setString(3, filename);
-	stmt1.setInt(4, goodsPrice);
-	stmt1.setInt(5, goodsAmount);
-	stmt1.setString(6, goodsContent);
-	int row = 0;
-	row = stmt1.executeUpdate();
+	int row = GoodsDAO.insertGoods(category,  goodsTitle,  filename, 
+			 goodsPrice,  goodsAmount,  goodsContent);
 	
 	if(row == 1) { // insert 성공하면 파일업로드
 		//part => 1) is => 2) os => 3)빈파일 

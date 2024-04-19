@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="shop.dao.*" %>
+
 <%
 	int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
 	/*
 Ex) SELECT * from goods
 	WHERE goods_no = '500' ;
-	*/
+	
 	String sql = "SELECT * from goods WHERE goods_no = ? ";
 	Class.forName("org.mariadb.jdbc.Driver");
 	Connection conn = null;
@@ -22,8 +24,9 @@ Ex) SELECT * from goods
 		System.out.println("성공");
 	} else {
 		System.out.println("실패");
-	}
-	
+	}*/
+	ArrayList<HashMap<String, Object>> goods = GoodsDAO.goodsOne(goodsNo);
+
 %>
 <!DOCTYPE html>
 <html>
@@ -42,15 +45,22 @@ Ex) SELECT * from goods
 	<div class="box">
 		<div style="width:300px; height:250px;
 						 margin:auto; margin-top:20px; ">
-<h1>상세보기</h1>				 
-			<div><%=rs.getString("category")%></div>
-			<div><img src="/shop/upload/<%=(String)(rs.getString("filename"))%>"
+<h1>상세보기</h1>	
+	<%
+			for(HashMap m :  goods) {
+	%>			 
+			<div><%=(String)(m.get("category"))%></div>
+			<div><img src="/shop/upload/<%=(String)(m.get("filename"))%>"
 						style="width:600px; height:400px;">
 			</div>
-			<div><%=rs.getString("goods_title")%></div>
-			<div><%=rs.getString("goods_content")%></div>
-			<div><%=rs.getString("goods_price")%></div>
-			<div><%=rs.getString("goods_amount")%></div>
+				<div><%=(String)(m.get("goods_title"))%></div>
+				<div><%=(String)(m.get("goods_content"))%></div>
+				<div><%=(String)(m.get("goods_price"))%></div>
+				<div><%=(String)(m.get("goods_amount"))%></div>
+	<%
+			}
+	%>
+					
 			<div>
 				<a href="./deleteGoods.jsp?goodsNo=<%=goodsNo%>">삭제</a> <!-- 삭제시키려면 링크에 굿즈넘버를 넣어야함 -->
 			</div>

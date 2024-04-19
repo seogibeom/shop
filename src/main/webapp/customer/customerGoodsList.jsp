@@ -176,23 +176,54 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <style>
-	.box {
-		margin: margin-left 50px;
-		text-align : center;
-
+	a{
+		text-decoration: none;
+		color : black;
+		}
 	}
+.header {
+		height: 70px;
+		background-color: #FF3636;
+		display : flex;
+		
+		}
+.header img{
+height : 70px;
+width: 150px;
+}
+.box {
+ width: 1350px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding-top: 10px;
+    background-color: white;
+    display: flex; /* Flexbox 컨테이너 설정 */
+    flex-wrap: wrap; /* 자식 요소가 공간을 넘으면 줄 바꿈 */
+    gap: 20px; /* 자식 요소 간의 간격 설정 */
+    justify-content: flex-start; /* 자식 요소를 왼쪽에서부터 시작하여 가로로 정렬 */
+}
+ .goodsimage1 {
+flex : flex-start;
+margin-left : 100px;
+margin-bottom : 30px;
+padding-bottom : 20px;
+margin-right: ; /* 적절한 오른쪽 여백 추가 */
+width: 300px; /* 적절한 너비 설정 */
+text-align : center;
+background-color: white;
+}
 </style>
 <body>
-	<!-- 메인메뉴 -->
-	<div>
-	
-	</div>
-	
+<div class="header">
+	<img src="./img/marioUnder.png">
+	<div><a href="/shop/customer/customerLogout.jsp">로그아웃</a></div>
+</div>
+<div class="main">
+
 	<!-- 서브메뉴 카테고리별 상품리스트 -->
-	<div>
+	<div class="goodsList">
 <!-- 전체상품리스트 -->	
 		<a href="/shop/customer/customerGoodsList.jsp?totalRow=<%=totalRow%>">전체</a>
-		
 <!-- 선택상품리스트 -->
 		<%
 			for(HashMap m : categoryList) {
@@ -204,98 +235,94 @@
 		<%		
 			}
 		%>
-		
 	</div>
 	<!-- 굿즈 상품목록 -->
-			<%		
+<div class="box">
+		<div class="goodsimage1 " style ="border: 1px;">
+		<%		
 				if(category == null) {
 					for(HashMap m4 : totalGoodsList) {
-			%>
-
-			<div class="container">
-				<div class="box">
-						
-					<div style="width:300px; height:250px; float:left;
-							 margin-right:20px; margin-top:20px; ">
-						<div>
-							<a href="/shop/customer/customerGoodsOne.jsp?goodsNo=<%=(Integer)(m4.get("goodsNo"))%>">
-								<img src="/shop/upload/<%=(String)(m4.get("filename"))%>"
-										style="width:300px; height:200px;">
-							</a>
-						</div>		
-						<div >
-							<a href="/shop/customer/customerGoodsOne.jsp?goodsNo=<%=(Integer)(m4.get("goodsNo"))%>">
-								<%=(String)(m4.get("category"))%>/<%=(String)(m4.get("goodsTitle"))%>
-							</a>
-						</div>
-						
-						<div></div>
-						<div>
-							<a href="/shop/customer/customerGoodsOne.jsp?goodsNo=<%=(Integer)(m4.get("goodsNo"))%>">
-								<%=(int)(m4.get("goodsPrice"))%> 원
-							</a>
-						</div>
-
+		%>
+					<div>
+						<a href="/shop/customer/customerGoodsOne.jsp?goodsNo=<%=(Integer)(m4.get("goodsNo"))%>">
+							<img src="/shop/upload/<%=(String)(m4.get("filename"))%>"
+									style="width:300px; height:200px;"></a>
+					</div>		
+					<div >
+						<a href="/shop/customer/customerGoodsOne.jsp?goodsNo=<%=(Integer)(m4.get("goodsNo"))%>">
+							<%=(String)(m4.get("category"))%>/<%=(String)(m4.get("goodsTitle"))%></a>
+					</div>				
+					<div>
+						<a href="/shop/customer/customerGoodsOne.jsp?goodsNo=<%=(Integer)(m4.get("goodsNo"))%>">
+							<%=(int)(m4.get("goodsPrice"))%> 원
+						</a>
 					</div>
-				</div>
-			</div>
 		<%			
-		}
-			} else {
+				}
+		%>	
+		</div>
+
+		<div  class="goodsimage1" style ="border: 1px;">		
+		<%
+			}else {
 				for(HashMap m2 : goodsTitleList) {
 		%>
-
-		<div class="container">
-			<div class="box">
-					
-				<div style="width:300px; height:250px; float:left;
-						 margin-right:20px; margin-top:20px; ">
 					<div>
 						<a href="/shop/customer/customerGoodsOne.jsp?goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">
 							<img src="/shop/upload/<%=(String)(m2.get("filename"))%>"
-									style="width:300px; height:200px;">
-						</a>
+									style="width:300px; height:200px;"></a>
 					</div>		
 					<div >
 						<a href="/shop/customer/customerGoodsOne.jsp?goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">
 							<%=(String)(m2.get("category"))%>/<%=(String)(m2.get("goodsTitle"))%>
 						</a>
 					</div>
-					
-					<div></div>
 					<div>
 						<a href="/shop/customer/customerGoodsOne.jsp?goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">
-							<%=(int)(m2.get("goodsPrice"))%> 원
-						</a>
+							<%=(int)(m2.get("goodsPrice"))%> 원</a>
 					</div>
-
-				</div>
-			</div>
-		</div>
+		
 		<%		}
 			}
 		%>	
+		</div>
+</div>
 <!-- ======================================= 페이징 ============================================== -->
 	
 	<%
 	if(category == null) {			//전체 페이지를 위한 button
 		if(currentPage >1) {	
 	%>
-			
-			<button><a href="./customerGoodsList.jsp?currentPage=<%=currentPage-1%>&totalRow2=<%=totalRow2%>">
-			◀◁◀</a></button>
+<div class="container overflow: auto;">
+	<div class="box">
+			<div class="fixed-bottom">
+				<button><a href="./customerGoodsList.jsp?currentPage=1&totalRow2=<%=totalRow2%>">
+				첫 페이지</a></button>
+				<button><a href="./customerGoodsList.jsp?currentPage=<%=currentPage-1%>&totalRow2=<%=totalRow2%>">
+				◀◁◀</a></button>
+		<%
+			}
+			if(currentPage<lastPage2 || currentPage ==1 ) {
+		%>
+				<button><a href="./customerGoodsList.jsp?currentPage=<%=currentPage+1%>&totalRow2=<%=totalRow2%>">
+				▷▶▷</a></button>
+				<button><a href="./customerGoodsList.jsp?currentPage=<%=lastPage2%>&totalRow2=<%=totalRow2%>">
+				마지막 페이지</a></button>	
+			</div>
+				
+				
+	</div>			
+</div>	
 	<%
 		}
-		if(currentPage<lastPage2 || currentPage ==1 ) {
-	%>
-			<button><a href="./customerGoodsList.jsp?currentPage=<%=currentPage+1%>&totalRow2=<%=totalRow2%>">
-			▷▶▷</a></button>
-			
-	<%
-		}
-	}else { 
+	}
+	else { 		//선택 페이지를 위한 button
 		if(currentPage >1) {	
 	%>
+	<div class="box">
+		<div class="fixed-bottom">
+			<button><a href="./customerGoodsList.jsp?currentPage=1&category=<%=category%>">
+			첫 페이지</a></button>
 			<button><a href="./customerGoodsList.jsp?currentPage=<%=currentPage-1%>&category=<%=category%>">
 			◀◁◀</a></button>	
 	<%
@@ -304,6 +331,10 @@
 	%>
 			<button>	<a href="./customerGoodsList.jsp?currentPage=<%=currentPage+1%>&category=<%=category%>">
 			▷▶▷</a></button>
+			<button><a href="./customerGoodsList.jsp?currentPage=<%=lastPage%>&category=<%=category%>">
+			마지막 페이지</a></button>
+		</div>	
+	</div>
 	<%
 		}
 			}
