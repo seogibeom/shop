@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.sql.*" %>
 <%@ page import = "java.net.*" %>
-<%@ page import="java.util.*" %>
+<%@ page import ="java.util.*" %>
 <%
 	//0. 로그인 인증 분기 : 세션변수 이름 - loginCustomer
 	//  loginForm페이지는 로그아웃상태에서만 출력되는 페이지

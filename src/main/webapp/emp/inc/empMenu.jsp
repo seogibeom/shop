@@ -8,11 +8,12 @@
 %>
 <div>
 	<a href="/shop/emp/empList.jsp">사원관리</a>
+	<a href="/shop/emp/customerList.jsp">고객관리</a>
 	<a href="/shop/emp/goodsList.jsp">상품관리</a>
 	<a href="/shop/emp/addGoodsForm.jsp">상품등록</a>
 	<a href="/shop/emp/categoryList.jsp">카테고리관리</a>
 	
 	<span>
-		<a href=""><%=(String)(loginMember.get("empName"))%>님</a> 반갑습니다
+		<b><%=(String)(loginMember.get("empName"))%> 님</b>
 	</span>
 </div>

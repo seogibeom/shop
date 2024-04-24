@@ -36,4 +36,30 @@ public class OrdersDAO {
 		
 		return list;
 	}
+	public static int insertOrders(String customerId,int goodsNo,int goodsPrice)  throws Exception {
+		
+		int row = 0;
+							
+		// DB 연동
+		Connection  conn = DBHelper.getConnection();
+				
+		String sql = "INSERT INTO orders(customer_id, goods_no, goods_price) VALUES(?, ?, ?)";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		stmt.setInt(2, goodsNo);
+		stmt.setInt(3, goodsPrice);
+		
+		row = stmt.executeUpdate();
+		if(row==1) {
+			int row2 = 0;
+			sql = null;
+			sql = "update goods set goods_amount = goods_amount - 1 where goods_no = ?";
+			PreparedStatement stmt2 = conn.prepareStatement(sql);
+			stmt2.setInt(1, goodsNo);
+			
+			row2 = stmt2.executeUpdate();
+		}
+		conn.close();
+		return row;
+	}
 }

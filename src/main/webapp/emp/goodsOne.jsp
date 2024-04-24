@@ -43,20 +43,20 @@ Ex) SELECT * from goods
 	
 <div class="container">
 	<div class="box">
-		<div style="width:300px; height:250px;
-						 margin:auto; margin-top:20px; ">
+		<div style="width:300px; height:300px;
+						 margin:350px; margin-top:20px; ">
 <h1>상세보기</h1>	
 	<%
 			for(HashMap m :  goods) {
 	%>			 
 			<div><%=(String)(m.get("category"))%></div>
 			<div><img src="/shop/upload/<%=(String)(m.get("filename"))%>"
-						style="width:600px; height:400px;">
+						style="width:600px; height:500px;">
 			</div>
 				<div><%=(String)(m.get("goods_title"))%></div>
 				<div><%=(String)(m.get("goods_content"))%></div>
-				<div><%=(String)(m.get("goods_price"))%></div>
-				<div><%=(String)(m.get("goods_amount"))%></div>
+				<div>가격 : <%=(String)(m.get("goods_price"))%>원</div>
+				<div>남은 수량 : <%=(String)(m.get("goods_amount"))%></div>
 	<%
 			}
 	%>

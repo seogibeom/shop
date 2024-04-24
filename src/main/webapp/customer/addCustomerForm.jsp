@@ -29,46 +29,82 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"></link>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
-<body>
+<style>
+table {
+    margin-left:auto; 
+    margin-right:auto;
+}
+.background-image {
+	background-image: url('/shop/img/mbc.png');
+    background-size: 500px; 
+    background-position: center; /* 이미지를 가운데 정렬 */
+}  
+</style>
+<body class="background-image" style="opacity:0.95;">
+<div class="row">
+	<div class="col-2"></div>
+    <div class="mt-5 col-8 bg-black border shadow p-3 mb-5 bg-body-tertiary rounded" >   
+    <div class="loginImg"></div>
+    	<div class="text-center"> <!-- text-center 클래스 추가 -->
+			<h1>회원가입</h1>
+	 	</div><br>
+			
+		<table>
+<form method="post" action="/shop/customer/checkIdAction.jsp">	
+			<tr>
+					
+				<th>아이디 : </th>
+				<th><input type="text" name="checkId" value="<%=checkId%>"></th>					 
+				<td><button type="submit"><b>중복확인</b></button> <span> <%=msg%></span></td>
+			</tr>
+</form>		
+<form method="post" action="/shop/customer/addCustomerAction.jsp">
+			 <%
+				if(ck.equals("T")) {
+		 	 %>
+					<tr>
+						<th><input type="hidden" value="<%=checkId%>" name="id"  readonly="readonly"></th>
+					</tr>
+			 <%
+				} else {
+			 %>
+					 <tr>							 
+					 	<th><input type="hidden" value="" name="id" readonly="readonly"></th>
+					 </tr>	
+			 <%
+				}
+			 %>	
+					 <tr>
+						 <th>비밀번호 : </th>
+						 <th><input type="password" name="pw"></th>
+					 </tr>
+					  <tr>
+						 <th>이름 : </th>
+						 <th><input type="text" name="name"></div></th>
+					 </tr>
+					  <tr>
+						 <th>생일 : </th>
+						 <th><input type="date" name="birth"></div></th>
+					 </tr>
+					  <tr>
+						 <th>성별 : </th>
+						 <th><input type="radio" name="gender" value="m">남
+							 <input type="radio" name="gender" value="f">여</th>
+					 </tr>
+					 <tr>
+					 	<th>email :	</th>
+					 	<th><input type="email" name="email"></th>
+					 </tr>					
+					 <tr>
+						<td style="margin-left:50px;"><button type="submit">가입</button></td>
+					 </tr>
+</form>
+		</table>
 
-	<form method="post" action="/shop/customer/checkIdAction.jsp">
-		아이디 중복확인 : <input type="text" name="checkId" value="<%=checkId%>">
-					<span><%=msg%></span> <button type="submit">중복확인</button>
-	</form>
-	
-	<form method="post" action="/shop/customer/addCustomerAction.jsp">
-	<%
-		if(ck.equals("T")) {
-	%>
-		<div>아이디 : <input type="text" value="<%=checkId%>" name="id"  readonly="readonly"></div>
-	 <%
-		} else {
-	 %>	
-		<div>아이디 : <input type="text" value="" name="id" readonly="readonly"></div>
-	 <%
-		}
-	 %>	
-		<div>비밀번호 : 		<input type="password" name="pw"></div>
-		<div>이름 : 			<input type="text" name="name"></div>
-		<div>생일 : 			<input type="date" name="birth"></div>
-		<div>성별 : 		
-							<input type="radio" name="gender" value="m">남
-							<input type="radio" name="gender" value="f">여
-		</div>
-		<div>email :	
-							<input type="email" name="email">
-				<!-- 		<select name="email2">
-							<option disabled selected>이메일을 선택해주세요</option>
-							<option value="naver">naver.com</option>
-							<option value="daum">daum.net</option>
-							<option value="gmail">gmail.com</option>
-							<option value="non">직접입력</option>
-						</select> 
-				-->	
-						
-		</div>
-		<div>			<button type="submit">입력</button></div>
-	</form>
+	</div>
+</div>
 </body>
 </html>

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EmpDAO {
+	//emp ? ~ ? 출력하는 코드 ( 페이징 )
 	public static ArrayList<HashMap<String, Object>> empList(int startRow, int rowPerPage) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		
@@ -31,6 +32,7 @@ public class EmpDAO {
 		conn.close();
 		return list;
 	}
+	// emp 총 개수 출력하는 메서드
 	public static int empCnt() throws Exception {
 		
 		Connection conn = DBHelper.getConnection();
@@ -47,6 +49,7 @@ public class EmpDAO {
 		return count;
 		
 	}	
+	// emp 등록하는 메서드 ( e m p 회원가입 )
 	public static int insertEmp( String empId, String empPw, String empName, String empJob, String hireDate)  throws Exception {
 		int row = 0;
 		// DB 접근
@@ -69,6 +72,7 @@ public class EmpDAO {
 		// String empId, String empPw : 로그인폼에서 사용자가 입력한 id/pw
 		
 		// 호출코드 HashMap<String, Object> m = EmpDAO.empLogin("admin", "1234");
+	//emp 로그인
 	public static HashMap<String, Object> empLogin(String empId, String empPw)
 												throws Exception {
 		HashMap<String, Object> resultMap = null;
@@ -91,6 +95,7 @@ public class EmpDAO {
 		conn.close();
 		return resultMap;
 	}
+	// emp Active를 ON으로 변경해주는 메서드
 	public static int updateEmpON(String  empId)  throws Exception {
 		int row = 0;
 		// DB 접근
@@ -110,6 +115,7 @@ public class EmpDAO {
 		conn.close();
 		return row;
 	}
+	// emp Active를 OFF로 변경해주는 메서드
 	public static int updateEmpOFF(String  empId)  throws Exception {
 		int row = 0;
 		// DB 접근

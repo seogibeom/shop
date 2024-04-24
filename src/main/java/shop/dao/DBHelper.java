@@ -21,6 +21,7 @@ public class DBHelper {
 		Connection  conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/shop", id, pw);
 		return conn;
 	}
+	//연결확인작업
 	public static void main (String[] args) throws Exception {
 		DBHelper.getConnection();
 	}

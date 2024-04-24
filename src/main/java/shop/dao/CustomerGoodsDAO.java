@@ -15,14 +15,10 @@ public class CustomerGoodsDAO {
 		// DB연동
 		Connection conn = DBHelper.getConnection();
 	
-		String sql = null;	// 쿼리초기화
-		//PreparedStatement stmt = null; //쿼리실행 초기화
-		
-		// ResultSet rs = null; // select 문의 결과를 저장하는 객체  초기화
 		// delelte , update insert 성공/실패만 select는 값이 넘어감
-		sql =  " update goods "
-			+ " set goods_amount = ?, update_date = sysdate" 	//sysdate==NOW()
-			+ " where goods_no = ? ";		
+		String sql =  " update goods "
+					+ " set goods_amount = ?, update_date = sysdate" 	//sysdate==NOW()
+					+ " where goods_no = ? ";		
 		
 		PreparedStatement stmt =  conn.prepareStatement(sql);
 		stmt.setInt(1, amount);

@@ -77,7 +77,7 @@
 */
 
 	 	int totalRow = 0;
-		int rowPerPage = 12;	
+		int rowPerPage = 9;	
 		int startRow = (currentPage-1) * rowPerPage;
 		//모델 호출하는 코드	// 카테고리별페이징
 		ArrayList<HashMap<String, Object>> categoryPage = GoodsDAO.categoryPage(category, startRow, rowPerPage);
@@ -103,9 +103,13 @@
 	
 	if(totalRow % rowPerPage != 0) {
 		lastPage = lastPage + 1;
-	}
-*/
-		int lastPage = GoodsDAO.categoryCnt(category);
+	}	
+*/				
+		 totalRow = GoodsDAO.categoryCnt(category);
+		int lastPage = totalRow / rowPerPage;		
+		if(totalRow % rowPerPage != 0) {
+			lastPage = lastPage + 1;
+		}
 %>
 <!-- ====================  카테고리별 cnt ====================  -->
 
@@ -161,7 +165,7 @@
               background-color: white;
          }
          .box .goodsimage1 img{
-            width : 200px;
+            width : 250px;
             height : 200px;
          }
          .container{
@@ -214,10 +218,12 @@
       </style>
 <body>
 	<!-- 메인메뉴 -->
-	<div class="header">
-	<div><a href="/shop/emp/empLogout.jsp">로그아웃</a></div>
-		<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
+<div class="header">
+	<div>
+		<a href="/shop/emp/empLogout.jsp">로그아웃</a>
 	</div>
+	<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
+</div>
    <div class="main">
       <div class="container">
          <div class="subList">
@@ -229,8 +235,7 @@
 	%>
 	<h2>
 			<a href="/shop/emp/goodsList.jsp?currentPage=<%=currentPage%>&category=<%=(String)(m.get("category"))%>">
-					<%=(String)(m.get("category"))%>
-					(<%=(Integer)(m.get("cnt"))%>)</a>
+					<%=(String)(m.get("category"))%></a>
 	</h2>
 	<%		
 			}
@@ -245,9 +250,7 @@
 		  <div class="goodsimage1" style ="border: 1px;">
 					<div>
 						<a href="/shop/emp/goodsOne.jsp?goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">
-							<img src="/shop/upload/<%=(String)(m2.get("filename"))%>"
-									>
-						</a>
+							<img src="/shop/upload/<%=(String)(m2.get("filename"))%>"></a>
 					</div>		
 					<div >
 						<a href="/shop/emp/goodsOne.jsp?goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">
