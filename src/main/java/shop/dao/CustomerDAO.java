@@ -1,8 +1,6 @@
 package shop.dao;
 
 import java.sql.*;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.net.*;
@@ -16,7 +14,8 @@ public class CustomerDAO {
 		// DB연동
 		Connection  conn = DBHelper.getConnection();
 		
-		String sql = "SELECT  customer_id customerId, customer_name customerName, birth, gender, email from customer order by create_date desc limit ?, ?";
+		String sql = "SELECT  customer_id customerId, customer_name customerName, birth, gender, email, create_date createDate "
+					+ " from customer order by create_date desc limit ?, ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, startRow);
 		stmt.setInt(2, rowPerPage);
@@ -29,6 +28,7 @@ public class CustomerDAO {
 			m.put("birth", rs.getString("birth"));
 			m.put("gender", rs.getString("gender"));
 			m.put("email", rs.getString("email"));
+			m.put("createDate", rs.getString("createDate"));
 			list.add(m);
 		}
 		conn.close();
@@ -76,4 +76,70 @@ public class CustomerDAO {
 		conn.close();
 		return list;
 	}
+	// customer 로그인 메서드
+	public static HashMap<String, Object> customerLogin(String customerId, String customerPw)throws Exception {
+		System.out.println(customerId+"<<= CustomerDAO.customerLogin param customerId");
+		System.out.println(customerPw+"<<= CustomerDAO.customerLogin param customerPw");
+		HashMap<String, Object> resultMap = null;
+		
+		// DB 접근
+		Connection  conn = DBHelper.getConnection();
+		
+		String sql = "select customer_id customerId, customer_name customerName "
+					+ " from customer where customer_id = ? and customer_pw = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		stmt.setString(2, customerPw);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			resultMap = new HashMap<String, Object>();
+			resultMap.put("customerId", rs.getString("customerId"));
+			resultMap.put("customerName", rs.getString("customerName"));
+		}
+		conn.close();
+		return resultMap;
+	}
+	// customer 회원가입 하는 메서드
+	public static int addCustomer( String id, String pw, String name, String birth, 
+								String gender, String email) throws Exception {
+		int row = 0;
+		// DB 접근
+		Connection  conn = DBHelper.getConnection();
+		
+		String sql = "INSERT INTO customer ("
+					+ "	customer_id, customer_pw, customer_name, birth, gender, email, update_date, create_date) "
+					+ "	VALUES(?, ?, ?, ?, ?, ?, NOW(), NOW())";
+		PreparedStatement stmt =  conn.prepareStatement(sql);
+		stmt.setString(1, id);
+		stmt.setString(2, pw);
+		stmt.setString(3, name);
+		stmt.setString(4, birth);
+		stmt.setString(5, gender);
+		stmt.setString(6, email);
+		
+		row = stmt.executeUpdate();
+		
+		conn.close();
+		return row;
+	}
+	public static String ckId(String checkId)throws Exception {
+		System.out.println(checkId+"<<= CustomerDAO.chId param checkId");
+		
+		// DB 접근
+		Connection  conn = DBHelper.getConnection();
+		
+		String sql = "select customer_id customerId from customer where customer_id = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, checkId);
+		
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			checkId = rs.getString("customerId");
+		}
+		conn.close();
+		return checkId;
+	}
+	
 }

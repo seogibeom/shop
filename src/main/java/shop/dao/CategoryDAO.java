@@ -10,11 +10,11 @@ import java.util.HashMap;
 public class CategoryDAO {
 	//카테고리 목록을 출력하는 메서드
 	public static ArrayList<HashMap<String, Object>> category() throws Exception {
-		
-		ArrayList<HashMap<String, Object>> categoryList
-				= new ArrayList<HashMap<String, Object>>();
+			//값초기화
+			ArrayList<HashMap<String, Object>> categoryList
+					= new ArrayList<HashMap<String, Object>>();
 			
-			// DB 접근
+			// DB 연동
 			Connection  conn = DBHelper.getConnection();
 				
 			String sql = "select category from category";
@@ -31,7 +31,7 @@ public class CategoryDAO {
 			conn.close();
 			return categoryList;
 		}
-	// 카테고리 등록하는 메서드
+	// 카테고리 추가하는 메서드
 	public static int addCategory(String category) throws Exception {
 		
 			int row = 0;

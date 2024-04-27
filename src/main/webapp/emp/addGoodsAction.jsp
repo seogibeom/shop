@@ -23,12 +23,16 @@
 <%
 	String category = request.getParameter("category");
 	System.out.println(category +"<<==category");
+	
 	String goodsTitle = request.getParameter("goodsTitle");
 	System.out.println(goodsTitle +"<<==goodsTitle");
+	
 	int goodsPrice = Integer.parseInt(request.getParameter("goodsPrice"));
-	System.out.println(goodsPrice +"<<==goodsPrice");	
-	 int goodsAmount = Integer.parseInt(request.getParameter("goodsAmount"));
-	 System.out.println(goodsAmount +"<<==goodsAmount");
+	System.out.println(goodsPrice +"<<==goodsPrice");
+	
+	int goodsAmount = Integer.parseInt(request.getParameter("goodsAmount"));
+	System.out.println(goodsAmount +"<<==goodsAmount");
+	
 	String goodsContent = request.getParameter("goodsContent");
 	System.out.println(goodsContent +"<<==goodsContent");
 	

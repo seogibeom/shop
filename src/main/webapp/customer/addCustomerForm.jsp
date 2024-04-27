@@ -33,15 +33,24 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 <style>
-table {
-    margin-left:auto; 
-    margin-right:auto;
-}
-.background-image {
-	background-image: url('/shop/img/mbc.png');
-    background-size: 500px; 
-    background-position: center; /* 이미지를 가운데 정렬 */
-}  
+	table {
+	    margin-left:auto; 
+	    margin-right:auto;
+	}
+	.background-image {
+		background-image: url('/shop/img/mbc.png');
+	    background-size: 500px; 
+	    background-position: center; /* 이미지를 가운데 정렬 */
+	}  
+	@font-face {
+	    font-family: 'TTLaundryGothicB';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+	body {
+	 	font-family: 'TTLaundryGothicB';
+	}
 </style>
 <body class="background-image" style="opacity:0.95;">
 <div class="row">
@@ -99,7 +108,9 @@ table {
 					 	<th><input type="email" name="email"></th>
 					 </tr>					
 					 <tr>
-						<td style="margin-left:50px;"><button type="submit">가입</button></td>
+					 	<td>
+							<button class="btn btn-primary" type="submit">가입</button>
+						</td>
 					 </tr>
 </form>
 		</table>

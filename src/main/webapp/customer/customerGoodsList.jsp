@@ -21,12 +21,7 @@
 	}
 	
 	String category = request.getParameter("category");
-	/*
-		null이면 
-		select * from goods
-		null이 아니면
-		select * from goods where category=?
-	*/
+
 %>
 
 <!-- Model Layer -->
@@ -49,7 +44,7 @@
 
 <!-- =============  페이징 ================ -->
 <%
-	 totalRow = GoodsDAO.categoryCnt(category);
+	totalRow = GoodsDAO.categoryCnt(category);
 	int lastPage = totalRow / rowPerPage;		
 	if(totalRow % rowPerPage != 0) {
 		lastPage = lastPage + 1;
@@ -76,81 +71,89 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
    <style>
           
-            .header {
-             display: flex; 
-             align-items: center; /* 수직 */
-             justify-content: start; /* 수평 */
-             height: 70px; 
-             background-color: #0B7946;
-             
-             
+    .header {
+        display: flex; 
+        align-items: center; /* 수직 */
+        justify-content: start; /* 수평 */
+        height: 70px; 
+        background-color: #0B7946;
+                         
          }
-            .header a {
-             text-decoration: none;
-             color : white;
-             font-size: 20px;
-           margin-right: 50px;
-         }
+    .header a {
+        text-decoration: none;
+        color : white;
+        font-size: 20px;
+        margin-right: 50px;
+        }
 
-         .box {
-            width: 1350px;
-            margin : 0 auto;
-            overflow : hidden;
-            padding-top: 10px;	     
-	     background-image: url("/shop/img/mbc2.png" );
+    .box {
+        width: 1350px;
+        margin : 0 auto;
+        overflow : hidden;
+        padding-top: 10px;	     
+	    background-image: url("/shop/img/mbc2.png" );
          }
-         .box .goodsimage1 {
-            float : left;
-            margin-left : 100px;
-            margin-bottom : 30px;
-            padding-bottom : 20px;
-            margin-right: ; /* 적절한 오른쪽 여백 추가 */
-              width: 300px; /* 적절한 너비 설정 */
-              text-align : center;
-              background-color: white;
-       	 opacity:0.96;    /* 투명도 */     
+    .box .goodsimage1 {
+        float : left;
+        margin-left : 100px;
+        margin-bottom : 30px;
+        padding-bottom : 20px;
+        margin-right: ; /* 적절한 오른쪽 여백 추가 */
+        width: 300px; /* 적절한 너비 설정 */
+        text-align : center;
+        background-color: white;
+        opacity:0.96;    /* 투명도 */     
          }
-         .box .goodsimage1 img{
-            width : 250px;
-            height : 200px;
+    .box .goodsimage1 img{
+        width : 250px;
+        height : 200px;
          }
-         .container{
-         text-align: center;
+    .container{
+        text-align: center;
           }
-         .btn{
-          display : flex;
-          justify-content: center;
+    .btn{
+        display : flex;
+        justify-content: center;
          }
-         a{
-         text-decoration: none;
-         color : black;
+    a{
+        text-decoration: none;
+        color : black;
          
-         }
-         
-         button{
-         margin-top: 15px;
-         border: none;
-         padding : 5px;
-         margin-rigth : 6px;
-         display : plex;
-         text-align: center;
-         }
-           .centered {
-            display: flex; /* 플렉스 컨테이너로 설정 */
-            justify-content: center; /* 수평 중앙 정렬 */
-            align-items: center; /* 수직 중앙 정렬 */
-            height: 20px; /* 예시를 위해 높이 설정 */
         }
-           .category {
-            float : left;     
-            margin-left : 100px;
-            margin-bottom : 30px;
-            padding-bottom : 20px;
-            margin-right: ; /* 적절한 오른쪽 여백 추가 */
+         
+    button{
+        margin-top: 15px;
+        border: none;
+        padding : 5px;
+        margin-rigth : 6px;
+        display : plex;
+        text-align: center;
+         }
+	.centered {
+		display: flex; /* 플렉스 컨테이너로 설정 */
+		justify-content: center; /* 수평 중앙 정렬 */
+		align-items: center; /* 수직 중앙 정렬 */
+		height: 20px; /* 예시를 위해 높이 설정 */
+        }
+	.category {
+		float : left;     
+		margin-left : 100px;
+		margin-bottom : 30px;
+        padding-bottom : 20px;
+        margin-right: ; /* 적절한 오른쪽 여백 추가 */
            }
-           .logout-link {
-            margin-left: 40px; /* 로그아웃 링크 좌측 여백 설정 */
+    .logout-link {
+        margin-left: 40px; /* 로그아웃 링크 좌측 여백 설정 */
         }
+	@font-face {
+	    font-family: 'TTLaundryGothicB';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+	body {
+	 	font-family: 'TTLaundryGothicB';
+	}
  
       </style>
 <body>
@@ -182,27 +185,28 @@
 	<!-- 굿즈 상품목록 -->
 <div class="box">		
 	<%
-		for(HashMap m2 : categoryPage) {
+		for(HashMap m2 : categoryPage) {			
 	%>
-		<div class="goodsimage1" style ="border: 1px;border-radius: 30px;">
-				<div>
-					<a href="/shop/customer/customerGoodsOne.jsp?
-							goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">								
-						<img src="/shop/upload/<%=(String)(m2.get("filename"))%>"></a>									
-				</div>				
-				<div >
-					<a href="/shop/customer/customerGoodsOne.jsp?goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">
-						[ <%=(String)(m2.get("category"))%> ]  <%=(String)(m2.get("goodsTitle"))%>
-					</a>
-				</div>
-				<div>
-					<a href="/shop/customer/customerGoodsOne.jsp?goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">
-						<%=(int)(m2.get("goodsPrice"))%> 원
-					</a>
-				</div>
-		</div>
+			<div class="goodsimage1" style ="border: 1px;border-radius: 30px;">
+					<div>
+						<a href="/shop/customer/customerGoodsOne.jsp?
+								goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">								
+							<img src="/shop/upload/<%=(String)(m2.get("filename"))%>"></a>									
+					</div>				
+					<div >
+						<a href="/shop/customer/customerGoodsOne.jsp?goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">
+							[ <%=(String)(m2.get("category"))%> ]  <%=(String)(m2.get("goodsTitle"))%>
+						</a>
+					</div>
+					<div>
+						<a href="/shop/customer/customerGoodsOne.jsp?goodsNo=<%=(Integer)(m2.get("goodsNo"))%>">
+							<%=(int)(m2.get("goodsPrice"))%> 원
+						</a>
+					</div>
+			</div>
 	<%		
-		}
+			}
+		
 	%>	
 </div>
 <!-- ======================================= 페이징 ============================================== -->

@@ -34,7 +34,7 @@ public class GoodsDAO {
 		//DB 접근
 		Connection conn = DBHelper.getConnection();
 		if(category==null) {	// 기본 카테고리값 ping 으로 지정
-		String sql2 = "select goods_no goodsNo, category, goods_title goodsTitle, filename, goods_price goodsPrice from goods where category = 'ping' limit ?, ?";
+		String sql2 = "select goods_no goodsNo, goods_amount goodsAmount, category, goods_title goodsTitle, filename, goods_price goodsPrice from goods where category = 'ping' limit ?, ?";
 		PreparedStatement stmt2 = conn.prepareStatement(sql2);
 		stmt2.setInt(1, startRow);
 		stmt2.setInt(2, rowPerPage);
@@ -44,6 +44,7 @@ public class GoodsDAO {
 				HashMap<String, Object> m2 = new HashMap<String, Object>();
 				m2.put("category", rs2.getString("category"));
 				m2.put("goodsNo", rs2.getInt("goodsNo"));
+				m2.put("goodsAmount", rs2.getInt("goodsAmount"));
 				m2.put("goodsTitle", rs2.getString("goodsTitle"));
 				m2.put("goodsPrice", rs2.getInt("goodsPrice"));
 				m2.put("filename", rs2.getString("filename"));

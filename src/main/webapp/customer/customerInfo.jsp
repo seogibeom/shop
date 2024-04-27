@@ -12,9 +12,14 @@
 	String customerId = request.getParameter("customerId");
 	System.out.println(customerId+ "<<==customerId");
 %>
-<%
-	ArrayList<HashMap<String, Object>> list = CustomerDAO.customerInfo(customerId);
-	System.out.println(list+"<<==list");
+<%	// customerId 받아와서 개인정보 출력하는 메서드
+	ArrayList<HashMap<String, Object>> infoList = CustomerDAO.customerInfo(customerId);
+	System.out.println(infoList+"<<==infoList");
+	
+	// customerId 받아와서 주문정보 출력하는 메서드
+	ArrayList<HashMap<String, Object>> ordersList = OrdersDAO.selectOrdersListByCustomer(customerId);
+	System.out.println(ordersList+"<<==ordersList");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -48,7 +53,20 @@
     background-image: url('/shop/img/mbc6.png');
     background-size: 650px; 
     background-position: center; /* 이미지를 가운데 정렬 */
-}       
+}   
+     @font-face {
+	    font-family: 'TTLaundryGothicB';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+	body {
+	 	font-family: 'TTLaundryGothicB';
+	}  
+		tr:nth-child(odd) th {
+        background-color: #0B7946; /* 짝수 행 배경색 */
+        color: white;
+    }  
 </style>
 
 <body class= "background-image">
@@ -62,8 +80,8 @@
       <div class="col-2"></div>
       <div class="mt-5 col-8 bg-black border shadow p-3 mb-5 bg-body-tertiary rounded ">   
      
-        <div class="text-center"> <!-- text-center 클래스 추가 -->
-			<h1>개인 정보</h1>
+        <div class="text-center">
+		<h1>개인 정보</h1>
 		</div><br>
 			<div class="box text-center">
 				<table class="table">
@@ -74,13 +92,13 @@
 						<th>이메일</th>
 					</tr>	
 				<%
-					for(HashMap<String, Object> m :list) {
+					for(HashMap<String, Object> m :infoList) {
 				%>	
 						<tr>			
-							<th><%=(String)(m.get("customerName"))%></th>
-							<th><%=(String)(m.get("birth"))%></th>
-							<th><%=(String)(m.get("gender"))%></th>
-							<th><%=(String)(m.get("email"))%></th>
+							<td><%=(String)(m.get("customerName"))%></td>
+							<td><%=(String)(m.get("birth"))%></td>
+							<td><%=(String)(m.get("gender"))%></td>
+							<td><%=(String)(m.get("email"))%></td>
 						</tr>
 				<%
 					}
@@ -89,19 +107,32 @@
 			</div>
 	</div>
 </div>
-	<hr>
+	<br>
 <div class="row">
       <div class="col-2"></div>
       <div class="mt-5 col-8 bg-black border shadow p-3 mb-5 bg-body-tertiary rounded" >   
       <div class="loginImg"></div>
-        <div class="text-center"> <!-- text-center 클래스 추가 -->
-			<h1>주문/배송 내역</h1>
+        <div class="text-center">
+			<h1>주문/배송 내역</h1>	<!--  최신 10개까지만 출력되게 설정했음 -->
 		</div><br>
 			<div class="box text-center">
 				<table class="table">
 					<tr>
-						<th><h3>배송중</h3></th>
-					</tr>	
+						<th>클럽종류</th>
+						<th>모델</th>
+						<th>주문/배송 상태</th>
+					</tr>
+					<%
+						for(HashMap<String, Object> m :ordersList) {
+					%>	
+							<tr>			
+								<td><%=(String)(m.get("goodsTitle"))%></td>
+								<td><%=(String)(m.get("goodsContent"))%></td>
+								<td><%=(String)(m.get("state"))%></td>
+							</tr>
+					<%
+						}
+					%>		
 				</table>
 			</div>
 	</div>

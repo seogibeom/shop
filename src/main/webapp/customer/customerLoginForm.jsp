@@ -49,32 +49,56 @@ a {
      background-size: 1000px;
      background-position: center; /* 이미지를 가운데 정렬 */
 }  
+     @font-face {
+	    font-family: 'TTLaundryGothicB';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+	body {
+	 	font-family: 'TTLaundryGothicB';
+	}
 </style>
 <body class="background-image" style="opacity:0.97;">
 <div class="row">
       <div class="col-2"></div>
       <div class="mt-5 col-8 bg-black border shadow p-3 mb-5 bg-body-tertiary rounded" > 
             <div class="text-center"> <!-- text-center 클래스 추가 -->
-				<h1>로그인</h1>
+				<h1>⛳GOLF CLUB SHOP🏌️</h1>
 			</div><br>
-               <form method="post" action="./customerLoginAction.jsp">
+            <div class="text-center"> <!-- text-center 클래스 추가 -->
+				<h2>로그인</h1>
+			</div><br>
+              
                   <div class="box text-center">
-	                <table>    
-	                     <tr>
-							<th>ID</th>
-							<th><input type="text" name="customerId"></th>
-						 </tr>
+	                <table>
+	                   <form method="post" action="./customerLoginAction.jsp">  
+		                     <tr>
+								<th>ID</th>
+								<th><input type="text" name="customerId"></th>
+							 </tr>
+							 <tr>
+								<th>PW</th>
+								<th><input type="password" name="customerPw"></th>
+								<th><button type="submit">로그인</button></th>
+							 </tr>
+						</form>
+						
 						 <tr>
-							<th>PW</th>
-							<th><input type="password" name="customerPw"></th>
-							<th><button type="submit">로그인</button></th>
-						 </tr>	
+			              	<th>&nbsp;</th>	           			
+	           			 	           			
+							<th>&nbsp;</th>
+						 </tr>
 			             <tr>
-			              	<th><br><a href="./addCustomerForm.jsp">회원가입</a></th>
-	           			 </tr>
+			              	<th><a href="./addCustomerForm.jsp">회원가입</a></th>	           			
+	           			 	           			
+							<th><a href="">아이디 찾기</a>/<a href="">비밀번호 찾기</a></th>
+						 </tr>
 	           		</table>	 
            		 </div> 
-               </form>
+               
+               <hr>
+               <a href="/shop/emp/empLoginForm.jsp">관리자 모드</a>
         <!-- col-8마지막 -->
       <div class="col-2"></div>
 	</div>
