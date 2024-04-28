@@ -15,7 +15,6 @@
 
 <%
 	int currentPage = 1;
-	int currentPage2 = 1;
 	if(request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}

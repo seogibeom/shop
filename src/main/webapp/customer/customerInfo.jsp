@@ -19,7 +19,7 @@
 	// customerId 받아와서 주문정보 출력하는 메서드
 	ArrayList<HashMap<String, Object>> ordersList = OrdersDAO.selectOrdersListByCustomer(customerId);
 	System.out.println(ordersList+"<<==ordersList");
-	
+		
 %>
 <!DOCTYPE html>
 <html>
@@ -30,29 +30,29 @@
 	<title></title>
 </head>
 <style>
-.box {
-  		 text-align: center; /* 내용을 가운데 정렬합니다. */
+	.box {
+  		text-align: center; /* 내용을 가운데 정렬합니다. */
        }
-.logout-link {
-         margin-left: 40px; /* 로그아웃 링크 좌측 여백 설정 */
+	.logout-link {
+        margin-left: 40px; /* 로그아웃 링크 좌측 여백 설정 */
         }
-.header {
-         display: flex; 
-         align-items: center; /* 수직 */
-         justify-content: start; /* 수평 */
-         height: 70px; 
-         background-color: #0B7946;
+	.header {
+        display: flex; 
+        align-items: center; /* 수직 */
+        justify-content: start; /* 수평 */
+        height: 70px; 
+        background-color: #0B7946;
          }
-.header a {
-         text-decoration: none;
-         color : white;
-         font-size: 20px;
-         margin-right: 50px;
+	.header a {
+        text-decoration: none;
+        color : white;
+        font-size: 20px;
+        margin-right: 50px;
          }  
-.background-image {
-    background-image: url('/shop/img/mbc6.png');
-    background-size: 650px; 
-    background-position: center; /* 이미지를 가운데 정렬 */
+	.background-image {
+		background-image: url('/shop/img/mbc6.png');
+   		background-size: 650px; 
+  		background-position: center; /* 이미지를 가운데 정렬 */
 }   
      @font-face {
 	    font-family: 'TTLaundryGothicB';
@@ -94,11 +94,13 @@
 				<%
 					for(HashMap<String, Object> m :infoList) {
 				%>	
-						<tr>			
+						<tr>
+									
 							<td><%=(String)(m.get("customerName"))%></td>
 							<td><%=(String)(m.get("birth"))%></td>
 							<td><%=(String)(m.get("gender"))%></td>
 							<td><%=(String)(m.get("email"))%></td>
+							
 						</tr>
 				<%
 					}
@@ -111,7 +113,6 @@
 <div class="row">
       <div class="col-2"></div>
       <div class="mt-5 col-8 bg-black border shadow p-3 mb-5 bg-body-tertiary rounded" >   
-      <div class="loginImg"></div>
         <div class="text-center">
 			<h1>주문/배송 내역</h1>	<!--  최신 10개까지만 출력되게 설정했음 -->
 		</div><br>
@@ -121,18 +122,24 @@
 						<th>클럽종류</th>
 						<th>모델</th>
 						<th>주문/배송 상태</th>
-					</tr>
+						<th>주문수량</th>
+					</tr>						
+					
 					<%
-						for(HashMap<String, Object> m :ordersList) {
-					%>	
-							<tr>			
-								<td><%=(String)(m.get("goodsTitle"))%></td>
-								<td><%=(String)(m.get("goodsContent"))%></td>
-								<td><%=(String)(m.get("state"))%></td>
-							</tr>
+						for(HashMap<String, Object> m :ordersList) {							
+					%>
+						<tr>				
+							<td><%=(String)(m.get("goodsTitle"))%></td>
+							<td><%=(String)(m.get("goodsContent"))%></td>
+							<td><%=(String)(m.get("state"))%></td>
+							<td><%=(String)(m.get("ordersAmount"))%></td>
+						</tr>
 					<%
 						}
-					%>		
+					%>	
+							
+					
+
 				</table>
 			</div>
 	</div>

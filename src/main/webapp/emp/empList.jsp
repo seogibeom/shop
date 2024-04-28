@@ -113,8 +113,7 @@
         padding : 5px;
         margin-rigth : 6px;
         display : plex;
-        text-align: center;
-        
+        text-align: center;        
          }
 	@font-face {
 	    font-family: 'TTLaundryGothicB';

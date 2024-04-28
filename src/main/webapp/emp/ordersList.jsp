@@ -8,11 +8,15 @@
 		response.sendRedirect("/shop/emp/empLoginForm.jsp");
 		return;
 	}
+	int currentPage = 1;
+	if(request.getParameter("currentPage") != null) {
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	}
 %>
 <%	
 
-	int currentPage = 1;
-	int rowPerPage = 12;
+	
+	int rowPerPage = 10;
 	int startRow = (currentPage-1) * rowPerPage;
 	
 	ArrayList<HashMap<String, Object>> list= OrdersDAO.selectOrdersListAll(startRow, rowPerPage);
@@ -40,6 +44,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 <style>
+	 a{
+        text-decoration: none;
+    }
      @font-face {
 	    font-family: 'TTLaundryGothicB';
 	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
@@ -90,7 +97,25 @@
         padding: 10px; /* 텍스트와 셀 경계 사이의 간격을 조절합니다. */
         white-space: nowrap; /* 텍스트가 한 줄로 표시되도록 설정합니다. */
         padding: 10px; /* 텍스트와 셀 경계 사이의 간격을 조절합니다. */
-
+	}
+	.centered {
+        display: flex; /* 플렉스 컨테이너로 설정 */
+        justify-content: center; /* 수평 중앙 정렬 */
+        align-items: center; /* 수직 중앙 정렬 */
+        height: 20px; /* 예시를 위해 높이 설정 */
+        }
+     button{
+        margin-top: 15px;
+        border: none;
+        padding : 5px;
+        margin-rigth : 6px;
+        display : plex;
+        text-align: center;        
+         }
+	.b {
+		text-decoration: none;
+        color : black;		
+	}
 </style>
 
 <body>
@@ -161,16 +186,16 @@
 				if(currentPage > 1) {
 			%>
 			
-				<button><a href="./ordersList.jsp?currentPage=1">
+				<button><a class="b" href="/shop/emp/ordersList.jsp?currentPage=1">
 					첫 페이지</a></button>		
-				<button><a href="./ordersList.jsp?currentPage=<%=currentPage-1%>">
+				<button><a class="b" href="/shop/emp/ordersList.jsp?currentPage=<%=currentPage-1%>">
 					이전</a></button>					
 			<%	
 				}	if(currentPage < lastPage) {
 			%>
-				<button><a href="./ordersList.jsp?currentPage=<%=currentPage+1%>">
+				<button><a class="b" href="/shop/emp/ordersList.jsp?currentPage=<%=currentPage+1%>">
 					다음</a></button>
-				<button><a href="./ordersList.jsp?currentPage=<%=lastPage%>">
+				<button><a class="b" href="/shop/emp/ordersList.jsp?currentPage=<%=lastPage%>">
 				 	마지막 페이지</a></button>			
 		<%
 				}

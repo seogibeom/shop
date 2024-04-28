@@ -3,7 +3,7 @@ import java.util.*;
 import java.sql.*;
 
 public class GoodsDAO {
-	// 카테고리 총개수 출력하는 메서드
+	//각 카테고리별 굿즈 총개수 출력하는 메서드
 	public static ArrayList<HashMap<String, Object>> categoryListCnt() throws Exception {
 		
 		ArrayList<HashMap<String, Object>> list = 
@@ -70,7 +70,7 @@ public class GoodsDAO {
 		}
 		return goodsTitleList;
 	}		
-	// 카테고리 별 굿즈 총 개수 출력하는 메서드
+	// 선택 카테고리 별 굿즈 총 개수 출력하는 메서드
 	public static int categoryCnt(String category) throws Exception {
 		int totalRow = 0;
 

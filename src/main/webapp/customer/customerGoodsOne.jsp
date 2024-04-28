@@ -122,6 +122,7 @@
 		%>
 	</div>		
 </div>
+<form method="post" action="/shop/customer/goodsBuy.jsp">
 	<div class="box">		
 	<%
 			for(HashMap m :  goods) {
@@ -133,18 +134,22 @@
 						style="width:600px; height:500px;">
 			</div>
 			<div class="text-background1">
-				<div><%=(String)(m.get("goods_title"))%></div>
-				<div><%=(String)(m.get("goods_content"))%></div>
+				<div>모델번호 : <%=goodsNo%></div>
+				<div>클럽 종류 : <%=(String)(m.get("goods_title"))%></div>
+				<div>모델 : <%=(String)(m.get("goods_content"))%></div>
 				<div>가격 : <%=(String)(m.get("goods_price"))%>원</div>
 				<div>남은 수량 : <%=(String)(m.get("goods_amount"))%></div>
 			</div>
-				<div>
-					<button><a style=" text-decoration: none; color : black;" 
-									href="/shop/customer/goodsBuy.jsp?goodsNo=<%=goodsNo%>
-									&goodsPrice=<%=(String)(m.get("goods_price"))%>
-									&customerId=<%=(String)(loginMember.get("customerId"))%>">구매</a>
-					</button>
-				</div>
+				
+			<div>구매 수량 : <input type="number" name="buyGoodsAmount" style="width : 50px;"></div>				
+			<div><input type="hidden" name="customerId" 
+								value="<%=(String)(loginMember.get("customerId"))%>"></div>
+			<div><input type="hidden" name="goodsNo" value="<%=goodsNo%>"></div>
+			<div><input type="hidden" name="goodsPrice" value="<%=(String)(m.get("goods_price"))%>"></div>													
+					
+			<div><button type="submit">구매</button></div>
+					
+											
 		</div>
 	<%
 			}
@@ -152,6 +157,7 @@
 			
 		
 	</div>
+</form>	
 </div>
 	
 	
