@@ -37,6 +37,12 @@
 	int rowPerPage = 9;	
 	int startRow = (currentPage-1) * rowPerPage;	//시작가로줄 = 시작페이지 - 1 * 가로몇줄
 	
+	//검색기능
+	String searchWord = "";	
+	if(request.getParameter("searchWord") != null) {
+		searchWord = request.getParameter("searchWord");
+	}
+	
 	ArrayList<HashMap<String, Object>> categoryPage = GoodsDAO.categoryPage(category, startRow, rowPerPage);
 %>
 <!--  ==================== row값 설정  ======================== -->
@@ -55,6 +61,7 @@
 	String customerId = request.getParameter("customerId");
 	System.out.println(customerId+ "<<==customerId");
 	ArrayList<HashMap<String, Object>> list = CustomerDAO.customerInfo(customerId);
+	
 %>	
 	
 <!-- =============  아이디 ================ -->
@@ -120,7 +127,7 @@
          
         }
          
-    button{
+    .PageButton{
         margin-top: 15px;
         border: none;
         padding : 5px;
@@ -163,10 +170,12 @@
 	</div>
 	<jsp:include page="/customer/inc/customerMenu.jsp"></jsp:include>
 </div>
+
 <div class="main">
       <div class="container">
          <div class="subList">
 	  <br><span><h1>B R A N D</h1></span><br>
+
 	  
 		<%
 			for(HashMap m : categoryList) {
@@ -214,21 +223,31 @@
 		if(currentPage >1) {	
 	%>
 	
-			<button><a href="./customerGoodsList.jsp?currentPage=1&category=<%=category%>">
+			<button class="PageButton"><a href="./customerGoodsList.jsp?currentPage=1&category=<%=category%>">
 			첫 페이지</a></button>
-			<button><a href="./customerGoodsList.jsp?currentPage=<%=currentPage-1%>&category=<%=category%>">
+			<button class="PageButton"><a href="./customerGoodsList.jsp?currentPage=<%=currentPage-1%>&category=<%=category%>">
 			이전</a></button>	
 	<%
 		}
 		if(currentPage < lastPage) {
 	%>
-			<button>	<a href="./customerGoodsList.jsp?currentPage=<%=currentPage+1%>&category=<%=category%>">
+			<button class="PageButton">	<a href="./customerGoodsList.jsp?currentPage=<%=currentPage+1%>&category=<%=category%>">
 			다음</a></button>
-			<button><a href="./customerGoodsList.jsp?currentPage=<%=lastPage%>&category=<%=category%>">
+			<button class="PageButton"><a href="./customerGoodsList.jsp?currentPage=<%=lastPage%>&category=<%=category%>">
 			마지막 페이지</a></button>
 	<%
 		}
 	%>
+	</div>
+	<br><br>
+	<div style="text-align: right;">
+		<form method="get" action="/shop/customer/customerGoodsList.jsp">
+			<div class="page-item page-link link-success btn btn-outline-success">
+				<b>상품검색 : </b>
+				<input style="height:30px;" type="text" name="searchWord">
+				<button type="submit">검색</button>
+			</div>
+		</form>
 	</div>
 	<br><br>
 </div>

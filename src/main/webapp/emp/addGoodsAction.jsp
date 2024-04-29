@@ -20,7 +20,10 @@
 %>
 
 <!-- Model Layer -->
-<%
+<%	
+	String empId = request.getParameter("empId");
+	System.out.println(empId +"<<==empId");
+
 	String category = request.getParameter("category");
 	System.out.println(category +"<<==category");
 	
@@ -54,7 +57,7 @@
 	) VALUES(
 	'주술회전', 'admin', '고죠사토루 피규어', '50000', '50', '귀하다 귀해!!', NOW(),NOW());
 	*/
-	int row = GoodsDAO.insertGoods(category,  goodsTitle,  filename, 
+	int row = GoodsDAO.insertGoods(category, empId, goodsTitle, filename, 
 			 goodsPrice,  goodsAmount,  goodsContent);
 	
 	if(row == 1) { // insert 성공하면 파일업로드

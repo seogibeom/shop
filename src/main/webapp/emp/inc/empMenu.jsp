@@ -15,5 +15,6 @@
 	
 	<span>
 		<b><%=(String)(loginMember.get("empName"))%> 님</b>
+		<b><%=(String)(loginMember.get("empId"))%> 님</b>
 	</span>
 </div>

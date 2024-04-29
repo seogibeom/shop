@@ -86,7 +86,7 @@ public class CustomerDAO {
 		Connection  conn = DBHelper.getConnection();
 		
 		String sql = "select customer_id customerId, customer_name customerName "
-					+ " from customer where customer_id = ? and customer_pw = ?";
+					+ " from customer where customer_id = ? and customer_pw = password(?)";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerId);
@@ -109,7 +109,7 @@ public class CustomerDAO {
 		
 		String sql = "INSERT INTO customer ("
 					+ "	customer_id, customer_pw, customer_name, birth, gender, email, update_date, create_date) "
-					+ "	VALUES(?, ?, ?, ?, ?, ?, NOW(), NOW())";
+					+ "	VALUES(?, password(?), ?, ?, ?, ?, NOW(), NOW())";
 		PreparedStatement stmt =  conn.prepareStatement(sql);
 		stmt.setString(1, id);
 		stmt.setString(2, pw);

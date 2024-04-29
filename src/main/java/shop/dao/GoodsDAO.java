@@ -30,11 +30,13 @@ public class GoodsDAO {
 	public static ArrayList<HashMap<String, Object>> categoryPage(String category, int startRow, int rowPerPage) throws Exception {
 		
 		ArrayList<HashMap<String, Object>> goodsTitleList = new ArrayList<HashMap<String, Object>>();
-	
+		
 		//DB 접근
 		Connection conn = DBHelper.getConnection();
 		if(category==null) {	// 기본 카테고리값 ping 으로 지정
-		String sql2 = "select goods_no goodsNo, goods_amount goodsAmount, category, goods_title goodsTitle, filename, goods_price goodsPrice from goods where category = 'ping' limit ?, ?";
+		String sql2 = "select goods_no goodsNo, goods_amount goodsAmount, category, goods_title goodsTitle, filename, goods_price goodsPrice"
+				+ " from goods "
+				+ " where category = 'ping' limit ?, ?";
 		PreparedStatement stmt2 = conn.prepareStatement(sql2);
 		stmt2.setInt(1, startRow);
 		stmt2.setInt(2, rowPerPage);
@@ -51,7 +53,9 @@ public class GoodsDAO {
 				goodsTitleList.add(m2);	
 			}
 		} else {	// 카테고리 선택 별 페이징
-		String sql2 = "select goods_no goodsNo, category, goods_title goodsTitle, filename, goods_price goodsPrice from goods where category = ? limit ?, ?";
+		String sql2 = "select goods_no goodsNo, category, goods_title goodsTitle, filename, goods_price goodsPrice "
+				+ " from goods "
+				+ " where category = ? limit ?, ?";
 		PreparedStatement stmt2 = conn.prepareStatement(sql2);
 		stmt2.setString(1, category);
 		stmt2.setInt(2, startRow);
@@ -90,7 +94,7 @@ public class GoodsDAO {
 		return totalRow; // 돌려줄 값
 	}
 	// 상품 등록하는 메서드
-	public static int insertGoods( String category, String goodsTitle, String filename, 
+	public static int insertGoods(String category, String empId, String goodsTitle, String filename, 
 			int goodsPrice, int goodsAmount, String goodsContent)  throws Exception {
 		
 		int row = 0;
@@ -98,14 +102,15 @@ public class GoodsDAO {
 		// DB 연동
 		Connection  conn = DBHelper.getConnection();
 				
-		String sql = "insert into goods (category, emp_id, goods_title , filename, goods_price , goods_amount , goods_content , update_date, create_date) VALUES(?, 'admin', ?, ?, ?, ?, ?, NOW(),NOW())";
+		String sql = "insert into goods (category, emp_id, goods_title , filename, goods_price , goods_amount , goods_content , update_date, create_date) VALUES(?, ?, ?, ?, ?, ?, ?, NOW(),NOW())";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, category);
-		stmt.setString(2, goodsTitle);
-		stmt.setString(3, filename);
-		stmt.setInt(4, goodsPrice);
-		stmt.setInt(5, goodsAmount);
-		stmt.setString(6, goodsContent);
+		stmt.setString(2, empId);
+		stmt.setString(3, goodsTitle);
+		stmt.setString(4, filename);
+		stmt.setInt(5, goodsPrice);
+		stmt.setInt(6, goodsAmount);
+		stmt.setString(7, goodsContent);
 		
 		row = stmt.executeUpdate();
 				

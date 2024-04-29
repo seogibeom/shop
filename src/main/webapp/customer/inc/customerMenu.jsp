@@ -9,9 +9,9 @@
 <div>
 	<span>
 		<a href="/shop/customer/customerInfo.jsp?customerId=<%=(String)(loginMember.get("customerId"))%>">
-		<%=(String)(loginMember.get("customerId"))%> 님</a>
+		<%=(String)(loginMember.get("customerId"))%> 님🪪</a>
 	</span>
 	<span>
-		<a href="/shop/customer/customerGoodsList.jsp">H O M E</a>
+		<a href="/shop/customer/customerGoodsList.jsp">🏠H O M E🏠</a>
 	</span>
 </div>

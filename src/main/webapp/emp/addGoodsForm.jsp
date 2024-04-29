@@ -10,12 +10,15 @@
 		response.sendRedirect("/shop/emp/empLoginForm.jsp");
 		return;
 	}
+	HashMap<String,Object> loginMember 
+	= (HashMap<String,Object>)(session.getAttribute("loginEmp"));
 %>
 
 <!-- Model Layer -->
 <%
 	// 카테고리 선택시 불러올 카테고리 메서드
 	ArrayList<HashMap<String, Object>> categoryList = CategoryDAO.category();
+
 %>
 
 <!DOCTYPE html>
@@ -105,6 +108,10 @@
 			<form method="post"  action="./addGoodsAction.jsp"
 						enctype="multipart/form-data">
 			<table>
+				<tr>
+					<th>판매 사원 :</th>
+					<td><input type="text" name="empId" value="<%=(String)(loginMember.get("empId"))%>"></td>					
+				</tr>
 				<tr>
 					<th>브랜드 :</th>
 					<td>	
