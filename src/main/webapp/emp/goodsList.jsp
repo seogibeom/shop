@@ -43,8 +43,13 @@
 	 	int totalRow = 0;
 		int rowPerPage = 9;	
 		int startRow = (currentPage-1) * rowPerPage;
+		//검색기능
+		String searchWord = "";	
+		if(request.getParameter("searchWord") != null) {
+			searchWord = request.getParameter("searchWord");
+		}
 		//모델 호출하는 코드	// 카테고리별페이징
-		ArrayList<HashMap<String, Object>> categoryPage = GoodsDAO.categoryPage(category, startRow, rowPerPage);
+		ArrayList<HashMap<String, Object>> categoryPage = GoodsDAO.categoryPage(searchWord,category, startRow, rowPerPage);
 %>
 <!--  ==================== 카테고리별 페이징  ======================== -->
 
@@ -113,13 +118,13 @@
         display : flex;
         justify-content: center;
          }
-         a{
+     a{
         text-decoration: none;
         color : black;
          
          }
          
-         button{
+    .pageButton{
         margin-top: 15px;
         border: none;
         padding : 5px;
@@ -152,6 +157,10 @@
 	body {
 	 	font-family: 'TTLaundryGothicB';
 	}
+	.search {
+		width:200px;
+		border-radius: 10px;
+	}
  
       </style>
 <body>
@@ -171,7 +180,7 @@
 			for(HashMap m : categoryList) {
 	%>
 		<div class="category">
-			<h2><a href="/shop/emp/goodsList.jsp?currentPage=<%=currentPage%>&category=<%=(String)(m.get("category"))%>">
+			<h2><a href="/shop/emp/goodsList.jsp?category=<%=(String)(m.get("category"))%>">
 					<%=(String)(m.get("category"))%></a>
 			</h2>
 		</div>
@@ -206,28 +215,40 @@
 	%>	
 </div>
 <!-- ======================================= 페이징 ============================================== -->
+
+
 	<div class="centered">
 	<%
-		if(currentPage >1) {		//선택 페이지를 위한 button
+		if(currentPage >1) {		
 	%>
 
-			<button><a href="./goodsList.jsp?currentPage=1&category=<%=category%>">
+			<button class="pageButton"><a href="./goodsList.jsp?currentPage=1&category=<%=category%>">
 			첫 페이지</a></button>
-			<button><a href="./goodsList.jsp?currentPage=<%=currentPage-1%>&category=<%=category%>">
+			<button class="pageButton"><a href="./goodsList.jsp?currentPage=<%=currentPage-1%>&category=<%=category%>">
 			이전</a></button>	
 	<%
 		}
 		if(currentPage < lastPage) {
 	%>
-			<button>	<a href="./goodsList.jsp?currentPage=<%=currentPage+1%>&category=<%=category%>">
+			<button class="pageButton">	<a href="./goodsList.jsp?currentPage=<%=currentPage+1%>&category=<%=category%>">
 			다음</a></button>
-			<button>	<a href="./goodsList.jsp?currentPage=<%=lastPage%>&category=<%=category%>">
+			<button class="pageButton">	<a href="./goodsList.jsp?currentPage=<%=lastPage%>&category=<%=category%>">
 			마지막 페이지</a></button>
 	<%
 		}
 	%>
 	</div>
 <br><br>
+	<div class="centered">
+		<form method="get" action="/shop/emp/goodsList.jsp">
+			<div style="font-size: 20px;">
+				<b>클럽종류 : </b>
+				<input class="search" type="text" name="searchWord">
+				<button style= "border-radius: 10px;" type="submit">검색</button>
+			</div>
+		</form>
+	</div>
+	<br><br>
 </div><!-- main -->	
 
 </body>

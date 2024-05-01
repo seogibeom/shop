@@ -144,6 +144,41 @@
 			</div>
 	</div>
 </div>
-		
+<br>
+<div class="row">
+      <div class="col-2"></div>
+      <div class="mt-5 col-8 bg-black border shadow p-3 mb-5 bg-body-tertiary rounded ">   
+     
+        <div class="text-center">
+		<h1>my 후기</h1>
+		</div><br>
+		<a href=""><h2>후기 작성</h2></a>
+			<div class="box text-center">
+				<table class="table">
+					<tr>
+						<th>모델번호</th>
+						<th>별점</th>
+						<th>내용</th>
+						<th>작성일</th>
+					</tr>	
+				<%
+					for(HashMap<String, Object> m :infoList) {
+				%>	
+						<tr>
+									
+							<td><%=(String)(m.get("customerName"))%></td>
+							<td><%=(String)(m.get("birth"))%></td><td><%=(String)(m.get("email"))%></td>
+							<td><%=(String)(m.get("gender"))%></td>
+							
+							
+						</tr>
+				<%
+					}
+				%>	
+				</table>
+			</div>
+	</div>
+</div>
+	<br>		
 </body>
 </html>

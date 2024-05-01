@@ -11,10 +11,13 @@
 
 	String customerId = request.getParameter("customerId");
 	System.out.println(customerId+ "<<==customerId");
-	//굿즈넘버가 ?인 제품 출력하는 메서드
+	// 굿즈넘버가 ?인 제품 출력하는 메서드
 	ArrayList<HashMap<String, Object>> goods = GoodsDAO.goodsOne(goodsNo);
-	
+	// 카테고리 리스트 출력하는 메서드
 	ArrayList<HashMap<String, Object>> categoryList = GoodsDAO.categoryListCnt();
+	// 후기 리스트 출력하는 메서드
+	ArrayList<HashMap<String, Object>> list = ReviewDAO.reviewList(goodsNo);
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -46,6 +49,17 @@
 	    background-size: cover; /* 배경 이미지를 요소에 맞게 늘림 (비율 유지) */
 	    background-repeat: no-repeat; /* 배경 이미지 반복 제거 */
 }
+	.box2 {
+    	display: flex;
+   		justify-content: center; /* 수평 중앙 정렬 */
+		width: 100%; /* 또는 필요한 너비로 설정 */
+}
+	.review{
+		background-image: url('/shop/img/mbc8.png');
+	    background-size: cover; /* 배경 이미지를 요소에 맞게 늘림 (비율 유지) */
+	    background-repeat: no-repeat; /* 배경 이미지 반복 제거 */
+	
+	}
 	.text-background1 {
   	 	background-color: white;
   	 	opacity:0.9;
@@ -157,6 +171,39 @@
 			
 		
 	</div>
+	<br><br>
+<div class="row review">
+      <div class="col-2"></div>
+      <div class="mt-5 col-8 bg-black border shadow p-3 mb-5 bg-body-tertiary rounded" >   
+        <div class="text-center">
+			<h1>구매 후기</h1>
+		</div>
+			<div class="box2 text-center">
+				<table class="table">
+					<tr>
+						<th>아이디</th>
+						<th>모델번호</th>
+						<th>별점</th>
+						<th>내용</th>
+						<th>작성일</th>
+					</tr>
+					<%
+						for(HashMap m : list){
+					%>										
+						<tr>
+							<th><%=(String)(loginMember.get("customerId"))%></th>
+							<th><%=(String)(m.get("goodsNo"))%></th>
+							<th><%=(String)(m.get("scoreStar"))%></th>
+							<th><%=(String)(m.get("content"))%></th>
+							<th><%=(String)(m.get("createDate"))%></th>
+						</tr>
+					<%
+						}
+					%>	
+				</table>
+			</div>
+	</div>
+</div>
 </form>	
 </div>
 	

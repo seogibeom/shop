@@ -126,7 +126,7 @@ public class CustomerDAO {
 	// 아이디 중복확인 해주는 메서드
 	public static String ckId(String checkId)throws Exception {
 		System.out.println(checkId+"<<= CustomerDAO.chId param checkId");
-		
+		String id = null;
 		// DB 접근
 		Connection  conn = DBHelper.getConnection();
 		
@@ -137,10 +137,10 @@ public class CustomerDAO {
 		
 		ResultSet rs = stmt.executeQuery();
 		if(rs.next()) {
-			checkId = rs.getString("customerId");
+			id = rs.getString("customerId");
 		}
 		conn.close();
-		return checkId;
+		return id;
 	}
 	
 	// 아이디 찾아주는 메서드

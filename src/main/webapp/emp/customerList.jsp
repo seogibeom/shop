@@ -151,7 +151,7 @@
 						<td><%=(String)m.get("customerId")%></td>
 						<td><%=(String)m.get("customerName")%></td>
 						<td><%=(String)m.get("birth")%></td>
-						<td><%=(String)m.get("gender")%></td>
+						<td><%=(String)m.get("gender")%></td>											
 						<td><%=(String)m.get("email")%></td>
 						<td><%=(String)m.get("createDate")%></td>
 					</tr>

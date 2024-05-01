@@ -20,13 +20,14 @@
 	}
 	
 	String category = request.getParameter("category");
+	System.out.println(category+"<<== 카레고리 커스터머 굿즈리스트");
 
 %>
 
 <!-- Model Layer -->
 <!-- ============= 리스트값 설정 ================ -->
 <% 	
-
+	// 카테고리리스트 출력하는 메서드
 	ArrayList<HashMap<String, Object>> categoryList = GoodsDAO.categoryListCnt();
 %>
 <!-- ============= 리스트값 설정 ================ -->
@@ -42,8 +43,9 @@
 	if(request.getParameter("searchWord") != null) {
 		searchWord = request.getParameter("searchWord");
 	}
+	// 카테고리별 굿즈리스트 출력 메서드
+	ArrayList<HashMap<String, Object>> categoryPage = GoodsDAO.categoryPage(searchWord, category, startRow, rowPerPage);
 	
-	ArrayList<HashMap<String, Object>> categoryPage = GoodsDAO.categoryPage(category, startRow, rowPerPage);
 %>
 <!--  ==================== row값 설정  ======================== -->
 
@@ -160,6 +162,10 @@
 	body {
 	 	font-family: 'TTLaundryGothicB';
 	}
+	.search {
+		width:200px;
+		border-radius: 10px;
+	}
  
       </style>
 <body>
@@ -191,7 +197,8 @@
 	</div>		
 </div>
 	<!-- 굿즈 상품목록 -->
-<div class="box">		
+<div class="box">
+
 	<%
 		for(HashMap m2 : categoryPage) {			
 	%>
@@ -213,8 +220,7 @@
 					</div>
 			</div>
 	<%		
-			}
-		
+		}		
 	%>	
 </div>
 <!-- ======================================= 페이징 ============================================== -->
@@ -240,12 +246,12 @@
 	%>
 	</div>
 	<br><br>
-	<div style="text-align: right;">
+	<div class="centered">
 		<form method="get" action="/shop/customer/customerGoodsList.jsp">
-			<div class="page-item page-link link-success btn btn-outline-success">
-				<b>상품검색 : </b>
-				<input style="height:30px;" type="text" name="searchWord">
-				<button type="submit">검색</button>
+			<div style="font-size: 20px;">
+				<b>클럽종류 : </b>
+				<input class="search" type="text" name="searchWord">
+				<button style= "border-radius: 10px;" type="submit">검색</button>
 			</div>
 		</form>
 	</div>

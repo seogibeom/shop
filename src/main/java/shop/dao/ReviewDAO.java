@@ -1,12 +1,40 @@
 package shop.dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-public class CustomerGoodsDAO {
+public class ReviewDAO {
 	
+	public static ArrayList<HashMap<String, Object>> reviewList(int goodsNo) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		System.out.println(goodsNo+"<<= goodsNo reviewList 메서드");
+		// DB연동
+		Connection conn = DBHelper.getConnection();
+	
+		String sql = " SELECT goods_no goodsNo, score_star scoreStar, content, create_date createDate"
+					+ " FROM review WHERE goods_no = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);	
+		
+		stmt.setInt(1, goodsNo);
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("goodsNo", rs.getString("goodsNo"));
+			m.put("scoreStar", rs.getString("scoreStar"));
+			m.put("content", rs.getString("content"));
+			m.put("createDate", rs.getString("createDate"));
+			list.add(m);
+		}
+		conn.close();
+		return list;
+		}
+	/*
 	// 상품 주문 or 취소시 수정할 수량
 	// /customer/addOrdersAction.jsp or dropOrdersAction.jsp
 	// param : int(상품번호), int(변경할 수량  + or -   )
@@ -113,5 +141,5 @@ public class CustomerGoodsDAO {
 		
 		return list;
 	}
-
+	*/
 }

@@ -158,7 +158,10 @@
 							<a href="/shop/emp/empOne.jsp?empId=<%=(String)m.get("empId")%>">
 															<%=(String)m.get("empId")%></a>
 						</td>
-						<td><%=(String)m.get("empName")%></td>
+						<td>
+							<a href="/shop/emp/empOne.jsp?empId=<%=(String)m.get("empId")%>">
+														<%=(String)m.get("empName")%>
+						</td>
 						<td><%=(String)m.get("empJob")%></td>
 						<td><%=(String)m.get("hireDate")%></td>
 						<td>

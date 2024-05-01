@@ -8,6 +8,7 @@
 
 
 		String ck = CustomerDAO.ckId(checkId);
+		System.out.println(ck+"<<= ckId Action.jsp");
 		if(ck==null) {
 			
 			// 아이디 사용 가능

@@ -34,28 +34,28 @@ public class EmpDAO {
 		return list;	// 자원반납
 	}
 	// emp 개인정보 출력하는 메서드
-		public static ArrayList<HashMap<String, Object>> empOne(String empId) throws Exception {
-			ArrayList<HashMap<String, Object>> one = new ArrayList<HashMap<String, Object>>();
+	public static ArrayList<HashMap<String, Object>> empOne(String empId) throws Exception {
+		ArrayList<HashMap<String, Object>> one = new ArrayList<HashMap<String, Object>>();
 			
-			//DB연동
-			Connection conn = DBHelper.getConnection();
+		//DB연동
+		Connection conn = DBHelper.getConnection();
 			
-			String sql = " SELECT * from emp WHERE emp_id = ? ";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, empId);
+		String sql = " SELECT * from emp WHERE emp_id = ? ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, empId);
 
-			ResultSet rs = stmt.executeQuery();	//쿼리가 실행되었을때 rs로 값을 넣는것
+		ResultSet rs = stmt.executeQuery();	//쿼리가 실행되었을때 rs로 값을 넣는것
 			
-			while(rs.next()) {	// rs 가 실행되었을때				
-				HashMap<String, Object> m = new HashMap<String, Object>(); // 해쉬맵 값초기화
-				m.put("emp_id", rs.getString("emp_id"));	// rs값에서 가져온값 <String, Object> 모양대로 집어넣기
-				m.put("grade", rs.getString("grade"));
-				m.put("emp_name", rs.getString("emp_name"));
-				m.put("emp_job", rs.getString("emp_job"));
-				m.put("hire_date", rs.getString("hire_date"));
-				m.put("update_date", rs.getString("update_date"));
-				m.put("create_date", rs.getString("create_date"));
-				one.add(m);	// m뭉텅이를 list에 담는것	
+		while(rs.next()) {	// rs 가 실행되었을때				
+			HashMap<String, Object> m = new HashMap<String, Object>(); // 해쉬맵 값초기화
+			m.put("emp_id", rs.getString("emp_id"));	// rs값에서 가져온값 <String, Object> 모양대로 집어넣기
+			m.put("grade", rs.getString("grade"));
+			m.put("emp_name", rs.getString("emp_name"));
+			m.put("emp_job", rs.getString("emp_job"));
+			m.put("hire_date", rs.getString("hire_date"));
+			m.put("update_date", rs.getString("update_date"));
+			m.put("create_date", rs.getString("create_date"));
+			one.add(m);	// m뭉텅이를 list에 담는것	
 				
 			}
 			conn.close();	// DB연동 해제

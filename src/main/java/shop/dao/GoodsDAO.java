@@ -26,22 +26,23 @@ public class GoodsDAO {
 		conn.close();
 		return list; // 돌려줄 값
 	}
-	// 카테고리별 굿즈 ?부터 ? 까지 출력하는 메서드 (페이징)
-	public static ArrayList<HashMap<String, Object>> categoryPage(String category, int startRow, int rowPerPage) throws Exception {
+	// 카테고리별 굿즈 ?부터 ? 까지 출력하는 메서드 (페이징), 검색기능
+	public static ArrayList<HashMap<String, Object>> categoryPage(String searchWord, String category, int startRow, int rowPerPage) throws Exception {
 		
 		ArrayList<HashMap<String, Object>> goodsTitleList = new ArrayList<HashMap<String, Object>>();
 		
 		//DB 접근
 		Connection conn = DBHelper.getConnection();
-		if(category==null) {	// 기본 카테고리값 ping 으로 지정
-		String sql2 = "select goods_no goodsNo, goods_amount goodsAmount, category, goods_title goodsTitle, filename, goods_price goodsPrice"
-				+ " from goods "
-				+ " where category = 'ping' limit ?, ?";
-		PreparedStatement stmt2 = conn.prepareStatement(sql2);
-		stmt2.setInt(1, startRow);
-		stmt2.setInt(2, rowPerPage);
-		ResultSet rs2 = stmt2.executeQuery();
-			
+		if(category==null) {	// 카테고리값이 없으면 검색어 출력
+			String sql2 = "select goods_no goodsNo, goods_amount goodsAmount, category, goods_title goodsTitle, filename, goods_price goodsPrice"
+					+ " from goods "
+					+ " where goods_title like ? limit ?, ?";
+			PreparedStatement stmt2 = conn.prepareStatement(sql2);
+			stmt2.setString(1, "%"+searchWord+"%");
+			stmt2.setInt(2, startRow);
+			stmt2.setInt(3, rowPerPage);
+			ResultSet rs2 = stmt2.executeQuery();
+				
 			while(rs2.next()) {
 				HashMap<String, Object> m2 = new HashMap<String, Object>();
 				m2.put("category", rs2.getString("category"));
@@ -53,14 +54,14 @@ public class GoodsDAO {
 				goodsTitleList.add(m2);	
 			}
 		} else {	// 카테고리 선택 별 페이징
-		String sql2 = "select goods_no goodsNo, category, goods_title goodsTitle, filename, goods_price goodsPrice "
-				+ " from goods "
-				+ " where category = ? limit ?, ?";
-		PreparedStatement stmt2 = conn.prepareStatement(sql2);
-		stmt2.setString(1, category);
-		stmt2.setInt(2, startRow);
-		stmt2.setInt(3, rowPerPage);
-		ResultSet rs2 = stmt2.executeQuery();
+			String sql2 = "select goods_no goodsNo, category, goods_title goodsTitle, filename, goods_price goodsPrice "
+					+ " from goods "
+					+ " where category = ? limit ?, ?";
+			PreparedStatement stmt2 = conn.prepareStatement(sql2);			
+			stmt2.setString(1, category);			
+			stmt2.setInt(2, startRow);
+			stmt2.setInt(3, rowPerPage);
+			ResultSet rs2 = stmt2.executeQuery();
 		
 			while(rs2.next()) {
 				HashMap<String, Object> m2 = new HashMap<String, Object>();
@@ -73,7 +74,8 @@ public class GoodsDAO {
 			}
 		}
 		return goodsTitleList;
-	}		
+	}
+
 	// 선택 카테고리 별 굿즈 총 개수 출력하는 메서드
 	public static int categoryCnt(String category) throws Exception {
 		int totalRow = 0;

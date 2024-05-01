@@ -73,8 +73,9 @@
         display: flex; /* 플렉스 컨테이너로 설정 */
         justify-content: center; /* 수평 중앙 정렬 */
         align-items: center; /* 수직 중앙 정렬 */
-        height: 20px; /* 예시를 위해 높이 설정 */
+        height: 15px; /* 예시를 위해 높이 설정 */
         vertical-align: middle;
+        
         }
      button{
        
@@ -121,7 +122,8 @@
 	<hr>
 		<form method="post" action="/shop/emp/addCategory.jsp">
 			<div class="centered3">
-				카테고리 추가 : <input type="text" name="addCategory"><button type="submit">등록</button>
+				카테고리 추가 : <input style= "border-radius: 10px;" type="text" name="addCategory">
+							<button style="height: 30px;" type="submit">등록</button>
 			</div>
 		</form>
 		</div>	
