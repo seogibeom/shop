@@ -9,14 +9,17 @@ import java.util.HashMap;
 
 public class ReviewDAO {
 	
+	// 굿즈넘버가 ? 일떄 리뷰 호출하는 메서드
 	public static ArrayList<HashMap<String, Object>> reviewList(int goodsNo) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		System.out.println(goodsNo+"<<= goodsNo reviewList 메서드");
 		// DB연동
 		Connection conn = DBHelper.getConnection();
 	
-		String sql = " SELECT goods_no goodsNo, score_star scoreStar, content, create_date createDate"
-					+ " FROM review WHERE goods_no = ?";
+		String sql = " SELECT o.goods_no goodsNo, r.score_star scoreStar, r.content, r.create_date createDate, r.orders_no ordersNo "
+				+ " FROM review r INNER JOIN orders o "
+				+ " ON r.orders_no = o.orders_no "
+				+ " WHERE goods_no = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);	
 		
@@ -29,117 +32,117 @@ public class ReviewDAO {
 			m.put("scoreStar", rs.getString("scoreStar"));
 			m.put("content", rs.getString("content"));
 			m.put("createDate", rs.getString("createDate"));
+			m.put("ordersNo", rs.getString("ordersNo"));
 			list.add(m);
 		}
 		conn.close();
 		return list;
 		}
-	/*
-	// 상품 주문 or 취소시 수정할 수량
-	// /customer/addOrdersAction.jsp or dropOrdersAction.jsp
-	// param : int(상품번호), int(변경할 수량  + or -   )
-	public static int updateGoodsAmount(int goodsNo, int amount) throws Exception {
-		int row = 0;
+	// 주문번호가 ? 일때 굿즈 출력하는 메서드
+	public static ArrayList<HashMap<String, Object>> addReviewGoods(int ordersNo) throws Exception {
+		ArrayList<HashMap<String, Object>> goods = new ArrayList<HashMap<String, Object>>();
+		System.out.println(ordersNo+"<<= ordersNo addReviewContent 메서드");
 		// DB연동
 		Connection conn = DBHelper.getConnection();
 	
-		// delelte , update insert 성공/실패만 select는 값이 넘어감
-		String sql =  " update goods "
-					+ " set goods_amount = ?, update_date = sysdate" 	//sysdate==NOW()
-					+ " where goods_no = ? ";		
+		String sql = "SELECT * "
+				+ " FROM orders o INNER JOIN goods g "
+				+ " ON o.goods_no = g.goods_no "
+				+ " WHERE orders_no = ?";
 		
-		PreparedStatement stmt =  conn.prepareStatement(sql);
-		stmt.setInt(1, amount);
-		stmt.setInt(2, goodsNo);	
+		PreparedStatement stmt = conn.prepareStatement(sql);	
+		
+		stmt.setInt(1, ordersNo);
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("goodsContent", rs.getString("goods_content"));
+			m.put("goodsNo", rs.getString("goods_no"));
+			goods.add(m);
+		}
+		conn.close();
+		return goods;
+		}
+	// 상품 등록하는 메서드
+		public static int addReviewAction(int ordersNo, String content, String scoreStar)  throws Exception {
+			
+			int row = 0;
+			
+			// DB 연동
+			Connection  conn = DBHelper.getConnection();
+					
+			String sql =  " INSERT INTO review"
+						+ "	(orders_no, content, score_star, create_date, update_date)"
+						+ " VALUES"
+						+ " (?, ?, ?, NOW(),NOW())";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, ordersNo);		
+			stmt.setString(2, content);
+			stmt.setString(3, scoreStar);
+									
+			row = stmt.executeUpdate();
+					
+			conn.close();
+			return row;
+		}
+		
+		// review에 order_no이 ? 인것을 출력하는 메서드 / 후기등록 중복방지
+		public static ArrayList<HashMap<String, Object>> ckReview(int ordersNo) throws Exception {
+			ArrayList<HashMap<String, Object>> goods = new ArrayList<HashMap<String, Object>>();
+			System.out.println(ordersNo+"<<= ordersNo ckReview 메서드");
+			// DB연동
+			Connection conn = DBHelper.getConnection();
+		
+			String sql = " SELECT orders_no ordersNo, content, score_star scoreStar, create_date createDate"
+					   + " from review WHERE orders_no = ? ";
+			
+			PreparedStatement stmt = conn.prepareStatement(sql);	
+			
+			stmt.setInt(1, ordersNo);
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				HashMap<String, Object> m2 = new HashMap<String, Object>();
+				m2.put("ordersNo", rs.getString("ordersNo"));
+				m2.put("content", rs.getString("content"));
+				m2.put("scoreStar", rs.getString("scoreStar"));
+				m2.put("createDate", rs.getString("createDate"));
+				goods.add(m2);
+			}
+			conn.close();
+			return goods;
+			}
+		
+		// customerInfo.jsp에 my후기 출력하는 메서드
+		public static ArrayList<HashMap<String, Object>> myReview(String customerId) throws Exception {
+			ArrayList<HashMap<String, Object>> goods = new ArrayList<HashMap<String, Object>>();
+			System.out.println(customerId+"<<= ordersNo ckReview 메서드");
+			// DB연동
+			Connection conn = DBHelper.getConnection();
 				
-		row = stmt.executeUpdate();
-		if(row==0) {
-			System.out.println("실패");
-		} else {
-			System.out.println("성공");
-		}
-		return row;
-	}
+			String sql = " SELECT o.goods_no goodsNo, r.orders_no ordersNo, r.content content, r.score_star scoreStar, r.create_date createDate "
+						+ " from review  r INNER JOIN orders o "
+						+ " ON r.orders_no = o.orders_no "
+						+ " WHERE customer_id = ? "
+						+ " ORDER BY create_date DESC LIMIT 0,10 ";
+					
+			PreparedStatement stmt = conn.prepareStatement(sql);	
+					
+			stmt.setString(1, customerId);
+			ResultSet rs = stmt.executeQuery();
+				
+			while(rs.next()) {
+				HashMap<String, Object> m = new HashMap<String, Object>();
+				m.put("goodsNo", rs.getString("goodsNo"));
+				m.put("ordersNo", rs.getString("ordersNo"));
+				m.put("content", rs.getString("content"));
+				m.put("scoreStar", rs.getString("scoreStar"));
+				m.put("createDate", rs.getString("createDate"));
+				goods.add(m);
+			}
+			conn.close();
+			return goods;
+			}
 	
-
-	// 상품 상세보기 => 주문
-	// /customer/goodsOne.jsp
-	// param : int(goods_no)
-	// return : Goods => HashMap
-	// 해쉬맵은 프라이머리키 같은 키값을 가져올때 // 굿즈넘버도 키값임 키값에 여러가지를 뽑아올때 해쉬맵도 배열같은거임
-	public static HashMap<String, Object> selectGoodsOne(int goodsNo) throws Exception{
-		HashMap<String, Object> map = null;
-		
-		Connection conn = DBHelper.getConnection();
-		String sql = null;	// 쿼리초기화
-		PreparedStatement stmt = null; //쿼리실행 초기화		
-		ResultSet rs = null; // select 문의 결과를 저장하는 객체  초기화
-		
-		 sql = "select *"
-			+ " from goods"
-			+ " where goods_no = ?" ;
-		stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, goodsNo);
-	
-		rs = stmt.executeQuery();
-		
-		// JDBC Result(자바에서 일반적이지 않은 자료구조) 
-		// => (자바에서 평이한 자료구조) Collections API 타입 => List, Set, Map
-		while(rs.next()) {		//선택된 굿즈넘버에 보여지고싶은 값을 아래에 받아와서 m 에 넣고 m을 list에 넣는다
-			HashMap<String, Object> m = new HashMap<String, Object> ();
-			m.put("goods_no", rs.getString("goods_no"));
-			m.put("category", rs.getString("category"));
-			m.put("filename", rs.getString("filename"));
-			m.put("goods_content", rs.getString("goods_content"));
-			m.put("goods_price", rs.getString("goods_price"));
-			m.put("goods_amount", rs.getString("goods_amount"));	
-		}
-		
-		return map;
-	}
-		
-	//미완성
-	// 고객 로그인후 상품목록 페이지
-	// /customer/goodsList.jsp
-	// param : void
-	// return : Goods(일부속성) 의 배열 => ArrayList<HashMap<String, Object>>
-	public static ArrayList<HashMap<String, Object>> selectGoodsList(String category, int startRow, int rowPerPage) throws Exception {
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		
-		// DB연동
-		Connection conn = DBHelper.getConnection();
-		//값초기화
-		String sql = null; 	//쿼리 초기화
-		PreparedStatement stmt = null;	//쿼리실행 초기화
-		ResultSet rs = null;		//select 문의 // 결과를 저장하는 객체  초기화
-		
-		if(category != null || category.equals("")) {
-			
-			sql = 	"select goods_no goodsNo, category, goods_title goodsTitle, goods_price goodsPrice "
-					+ "from goods"
-					+ "where category = ?"
-					+ "order by goods_no desc"
-					+ "offset ? rows fetch next ? rows only";
-						// ?번 째 부터 ?번째 까지 출력
-			stmt = conn.prepareStatement(sql);
-			
-			stmt.setString(1, category);
-			stmt.setInt(2, startRow);
-			stmt.setInt(3, rowPerPage);
-			
-		} else {
-			
-			sql = 	"select goods_no goodsNo, category, goods_title goodsTitle, goods_price goodsPrice "
-					+ "from goods"
-					+ "order by goods_no desc"
-					+ "offset ? rows fetch next ? rows only";
-			
-			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, startRow);
-			stmt.setInt(2, rowPerPage);
-		}
-		
-		return list;
-	}
-	*/
 }

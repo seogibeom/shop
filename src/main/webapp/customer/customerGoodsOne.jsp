@@ -182,16 +182,19 @@
 				<table class="table">
 					<tr>
 						<th>아이디</th>
+						<th>주문번호</th>
 						<th>모델번호</th>
 						<th>별점</th>
 						<th>내용</th>
 						<th>작성일</th>
 					</tr>
+<form method="post" action="/shop/customer/addReview.jsp">
 					<%
 						for(HashMap m : list){
 					%>										
 						<tr>
 							<th><%=(String)(loginMember.get("customerId"))%></th>
+							<th><%=(String)(m.get("ordersNo"))%></th>
 							<th><%=(String)(m.get("goodsNo"))%></th>
 							<th><%=(String)(m.get("scoreStar"))%></th>
 							<th><%=(String)(m.get("content"))%></th>
@@ -199,7 +202,8 @@
 						</tr>
 					<%
 						}
-					%>	
+					%>
+</form>						
 				</table>
 			</div>
 	</div>

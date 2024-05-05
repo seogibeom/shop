@@ -10,15 +10,20 @@
 		return;
 	}
 	String customerId = request.getParameter("customerId");
-	System.out.println(customerId+ "<<==customerId");
+	System.out.println(customerId+ "<<== customerId info.jsp");
 %>
 <%	// customerId 받아와서 개인정보 출력하는 메서드
 	ArrayList<HashMap<String, Object>> infoList = CustomerDAO.customerInfo(customerId);
-	System.out.println(infoList+"<<==infoList");
+	System.out.println(infoList+"<<== infoList info.jsp");
 	
 	// customerId 받아와서 주문정보 출력하는 메서드
 	ArrayList<HashMap<String, Object>> ordersList = OrdersDAO.selectOrdersListByCustomer(customerId);
-	System.out.println(ordersList+"<<==ordersList");
+	System.out.println(ordersList+"<<== ordersList info.jsp");
+	
+	// my후기 출력하는 메서드
+	ArrayList<HashMap<String, Object>> reviewList = ReviewDAO.myReview(customerId);
+	System.out.println(reviewList+"<<== reviewList info.jsp");
+	
 		
 %>
 <!DOCTYPE html>
@@ -66,6 +71,10 @@
 		tr:nth-child(odd) th {
         background-color: #0B7946; /* 짝수 행 배경색 */
         color: white;
+    }
+	a{
+        text-decoration: none;
+        color : black;        
     }  
 </style>
 
@@ -119,20 +128,35 @@
 			<div class="box text-center">
 				<table class="table">
 					<tr>
+						<th>모델번호</th>
 						<th>클럽종류</th>
-						<th>모델</th>
-						<th>주문/배송 상태</th>
+						<th>모델</th>						
 						<th>주문수량</th>
+						<th>주문/배송 상태</th>
+						<th>후기</th>
 					</tr>						
 					
 					<%
 						for(HashMap<String, Object> m :ordersList) {							
 					%>
-						<tr>				
+						<tr>
+							<td><%=(String)(m.get("goodsNo"))%></td>				
 							<td><%=(String)(m.get("goodsTitle"))%></td>
 							<td><%=(String)(m.get("goodsContent"))%></td>
-							<td><%=(String)(m.get("state"))%></td>
 							<td><%=(String)(m.get("ordersAmount"))%></td>
+							<td><%=(String)(m.get("state"))%></td>
+						<%
+							if(m.get("state").equals("배송완료")) {
+						%>	
+								<td><a href="/shop/customer/addReviewForm.jsp?ordersNo=<%=(String)(m.get("ordersNo"))%>">후기 작성 🖊️</a></td>
+						<%
+							} else {
+						%>
+								<td>-</td>
+						<%
+							}
+						%>	
+																					
 						</tr>
 					<%
 						}
@@ -152,25 +176,24 @@
         <div class="text-center">
 		<h1>my 후기</h1>
 		</div><br>
-		<a href=""><h2>후기 작성</h2></a>
 			<div class="box text-center">
 				<table class="table">
 					<tr>
+						<th>주문번호</th>
 						<th>모델번호</th>
 						<th>별점</th>
 						<th>내용</th>
 						<th>작성일</th>
 					</tr>	
 				<%
-					for(HashMap<String, Object> m :infoList) {
+					for(HashMap m : reviewList) {
 				%>	
 						<tr>
-									
-							<td><%=(String)(m.get("customerName"))%></td>
-							<td><%=(String)(m.get("birth"))%></td><td><%=(String)(m.get("email"))%></td>
-							<td><%=(String)(m.get("gender"))%></td>
-							
-							
+							<td><%=(String)(m.get("ordersNo"))%></td>
+							<td><%=(String)(m.get("goodsNo"))%></td>
+							<td><%=(String)(m.get("scoreStar"))%></td>
+							<td><%=(String)(m.get("content"))%></td>
+							<td><%=(String)(m.get("createDate"))%></td>
 						</tr>
 				<%
 					}

@@ -29,10 +29,12 @@ public class OrdersDAO {
 		
 		while(rs.next()) {
 			HashMap<String, Object> m = new HashMap<String, Object>(); 
+			m.put("goodsNo", rs.getString("goodsNo"));
 			m.put("goodsTitle", rs.getString("goodsTitle"));
 			m.put("goodsContent", rs.getString("goodsContent"));
 			m.put("state", rs.getString("state"));
 			m.put("ordersAmount", rs.getString("ordersAmount"));
+			m.put("ordersNo", rs.getString("ordersNo"));
 			list.add(m);			
 		}
 		conn.close();

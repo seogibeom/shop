@@ -71,11 +71,11 @@ a {
 	                   <form method="post" action="./customerLoginAction.jsp">  
 		                     <tr>
 								<th>ID</th>
-								<th><input type="text" name="customerId"></th>
+								<th><input type="text" name="customerId" placeholder="아이디를 입력하세요."></th>
 							 </tr>
 							 <tr>
 								<th>PW</th>
-								<th><input type="password" name="customerPw"></th>
+								<th><input type="password" name="customerPw" placeholder="패스워드를 입력하세요."></th>
 								<th><button type="submit">로그인</button></th>
 							 </tr>
 						</form>
